@@ -1,7 +1,7 @@
 # shellcheck shell=sh disable=SC3043
 
-. ./tool.sh
 xrc param/v0
+. $HOME/.qb/tool.sh
 
 qb(){
     param:dsl <<A
