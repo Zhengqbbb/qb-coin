@@ -1,0 +1,2 @@
+mkdir -p "$HOME/.qb/"
+cp -r ./* "$HOME/.qb/"

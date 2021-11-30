@@ -1,6 +1,6 @@
 # shellcheck shell=sh disable=SC3043
 
-. /Users/qbenben/.oh-my-alias/qb/.qb/tool
+. ./tool.sh
 xrc param/v0
 
 qb(){

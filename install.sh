@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+# shellcheck shell=sh disable=SC3043
 
 # main
 ___qb_setup() {
@@ -23,14 +23,15 @@ ___qb_setup() {
 	done
 	# shellcheck source=$HOME/.qb/qb.sh
 	. "$HOME/.qb/qb.sh"
+	___qb_draw_logo
 }
 
 ___qb_install() {
-	local REPO=${REPO:-zhengqbbb/qb}
-	local REMOTE=${REMOTE:-https://github.com/${REPO}.git}
-	local QB_PATH=${QB_PATH:-$HOME/.qb}
+	local REPO="${REPO:-zhengqbbb/qb}"
+	local REMOTE="${REMOTE:-https://github.com/${REPO}.git}"
+	local QB_PATH="${QB_PATH:-$HOME/.qb}"
 	if [ -f  "$QB_PATH/qb.sh" ]; then
-		printf "%s\n" "$(ui yellow "[qb]: Already installed in $QB_PATH/qb.sh")"
+		printf "%s\n" "$(ui yellow "[qb]: Already installed qb")"
 		return 0
 	fi
 	printf "%s\n" "$(ui green "[qb]: Start to clone qb repo ...")"

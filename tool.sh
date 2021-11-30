@@ -24,23 +24,23 @@ ___qb_error_log_info() {
 }
 
 ___qb_is_not_folder(){
-  local TARGET_PATH="$1"
-  if [ ! -d "$TARGET_PATH" ]; then
-    warm_log_info "Not Find Folder :: $TARGET_PATH"
-    return 0
-  fi
-  return 1
+	local TARGET_PATH="$1"
+	if [ ! -d "$TARGET_PATH" ]; then
+	warm_log_info "Not Find Folder :: $TARGET_PATH"
+	return 0
+	fi
+	return 1
 }
 ___qb_is_not_file(){
-  local TARGET_PATH="$1"
-  if [ ! -f "$TARGET_PATH" ]; then
-    warm_log_info "Not Find File :: $TARGET_PATH"
-    return 0
-  fi
-  return 1
+	local TARGET_PATH="$1"
+	if [ ! -f "$TARGET_PATH" ]; then
+	warm_log_info "Not Find File :: $TARGET_PATH"
+	return 0
+	fi
+	return 1
 }
 
 ___qb_draw_logo() {
-  local ___qb_var_art_path="/Users/qbenben/.oh-my-alias/qb/.qb/art"
-  printf "$(cat $___qb_var_art_path)\n"
+	local ___qb_var_art_path="$HOME/.qb/art"
+	printf "$(cat $___qb_var_art_path)\n"
 }
