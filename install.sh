@@ -23,7 +23,7 @@ ___qb_setup() {
 	done
 
 	# shellcheck source=$HOME/.qb/qb.sh
-	[ -f "$HOME/.qb/data.json.bak" ] && mv "$HOME/.qb/data.json.bak" "$HOME/.qb/data.json"
+	[ -f "$HOME/.qb/data.json.bak" ] && cp "$HOME/.qb/data.json.bak" "$HOME/.qb/data.json"
 	. "$HOME/.qb/qb.sh"
 	___qb_draw_logo
 	qb help
