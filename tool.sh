@@ -11,8 +11,9 @@ ___qb_success_log_info() {
 }
 
 ___qb_info_log_info() {
-    printf "%s" "$(ui yellow "📝 INFO: ")"
-    printf "%s\n" "$(ui cyan "$1")"
+    printf "%s%s\n" \
+		"$(ui yellow "📝 INFO: ")" \
+    	"$(ui cyan "$1")"
 }
 
 ___qb_warm_log_info() {
@@ -21,6 +22,22 @@ ___qb_warm_log_info() {
 
 ___qb_error_log_info() {
     printf "%s\n" "$(ui red "❌ ERROR: $1")"
+}
+
+___qb_printf_key_value() {
+    printf "%s %s" \
+		"$(ui bold cyan "$1"):" \
+    	"$(ui bold green "$2")"
+}
+
+###
+ # @param {*} link
+###
+___qb_printf_net_warm() {
+    printf "%s\n%s\n%s\n" \
+		"$(ui red 'not found data, maybe is net error')" \
+		"Please check if the network is normal: $(ui underline yellow "$1")" \
+		"And you can try $(ui cyan "\`qb proxy\`") to reset the proxy"
 }
 
 ___qb_is_not_folder(){
@@ -42,5 +59,5 @@ ___qb_is_not_file(){
 
 ___qb_draw_logo() {
 	local ___qb_var_art_path="$HOME/.qb/art"
-	printf "$(cat $___qb_var_art_path)\n"
+	printf "$(cat "$___qb_var_art_path")\n"
 }

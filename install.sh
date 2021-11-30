@@ -21,9 +21,22 @@ ___qb_setup() {
 			printf "%s\n" "$(ui green "[qb]: Successfully Installed in: $i")" >&2
 		fi
 	done
+
 	# shellcheck source=$HOME/.qb/qb.sh
 	. "$HOME/.qb/qb.sh"
 	___qb_draw_logo
+	qb help
+	___qb_printf_line
+	printf "%s %s\n" \
+		"$(ui bold green '[qb]:')" \
+		"You can use $(ui bold cyan "\`qb help\`")  to view the help document"
+	printf "%s %s\n" \
+		"$(ui bold green '[qb]:')" \
+		"Now you can try to run $(ui bold cyan "\`qb\`") to check it work" 
+	printf "%s %s %s\n" \
+		"$(ui bold green '[qb]:')" \
+		"If there is a $(ui bold yellow 'network error') maybe you need socket5 proxy," \
+		"you can run$(ui bold cyan "\`qb proxy\`") to set socket5 address"
 }
 
 ___qb_install() {
@@ -51,7 +64,6 @@ ___qb_install() {
 # load x-cmd
 [ ! -f "$HOME/.x-cmd/.boot/boot" ] && eval "$(curl https://get.x-cmd.com)"
 [ ! "$(command -v x)" ] && eval "$(curl https://get.x-cmd.com)"
-xrc ui
-printf "%s\n" "$(ui green "[qb]: Successful load x-cmd A powerful shell tool")"
+xrc ui && printf "%s\n" "$(ui green "[qb]: Successful load x-cmd A powerful shell tool")"
 ___qb_install
 ___qb_setup

@@ -1,8 +1,21 @@
 {
+    "timer": 15,
+    "proxy":{
+        "address": "127.0.0.1",
+        "port": "1086"
+    },
     "coins": [
         {
             "name": "BTCB",
             "address": "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c"
+        },
+        {
+            "name": "GMR",
+            "address": "0x0523215dcafbf4e4aa92117d13c6985a3bef27d7"
+        },
+        {
+            "name": "BIT",
+            "address": "0xc864019047B864B6ab609a968ae2725DFaee808A"
         }
     ]
 }
