@@ -25,8 +25,8 @@ A
     local coin_list
     local coin_list_length=0
     qb_data="$(cat "$qb_source_path/data.json")"
-    coin_list="$(printf "%s" "$qb_data" | jq ".coins")"
-    coin_list_length="$(printf "%s" "$coin_list" | jq "length")"
+    coin_list="$(printf "%s" "$qb_data" | x jq ".coins")"
+    coin_list_length="$(printf "%s" "$coin_list" | x jq "length")"
 
     if [ -z "$PARAM_SUBCMD" ]; then
         ___qb_control_run
@@ -49,8 +49,8 @@ ___qb_control_ls() {
     while [ $i -lt "${coin_list_length}" ]; do
         printf "%-10s  %-40s %s\n" \
             "$(ui bold yellow "${i} ➜")" \
-            "$(___qb_printf_key_value 'Name' "$(printf "%s" "$coin_list" | jq -r ".[${i}].name")")" \
-            "$(___qb_printf_key_value 'Address' "$(printf "%s" "$coin_list" | jq -r ".[${i}].address")")"
+            "$(___qb_printf_key_value 'Name' "$(printf "%s" "$coin_list" | x jq -r ".[${i}].name")")" \
+            "$(___qb_printf_key_value 'Address' "$(printf "%s" "$coin_list" | x jq -r ".[${i}].address")")"
         i=$((i+1))
     done
     ___qb_printf_line
@@ -65,10 +65,14 @@ ___qb_control_add() {
     local _data
     local _name
     read -p "$(ui bold green 'Print BSC coin address') $(ui bold yellow '➜') " _address
+    if [ -z "$_address" ];then
+        ___qb_error_log_info "Empty data"
+        return 1
+    fi
     ___qb_info_log_info "Loading coin data..."
     ______qb_control_use_proxy
     _data="$(curl https://api.pancakeswap.info/api/v2/tokens/"$_address" 2>/dev/null)" 2>/dev/null
-    _name="$(printf "%s" "$_data" | jq -r ".data.symbol")"
+    _name="$(printf "%s" "$_data" | x jq -r ".data.symbol")"
     if [ -z "$_data" ] || [ -z "$_name" ];then
         ___qb_printf_net_warm "https://api.pancakeswap.info/api/v2/tokens/${_address}"
         return 1
@@ -76,8 +80,8 @@ ___qb_control_add() {
     local _item
     local _coins
     _item=$(printf "%s" "[{\"name\": \"${_name}\",\"address\": \"${_address}\"}]")
-    _coins=$(printf "$qb_data" | jq ".coins + $_item")
-    qb_data=$(printf "$qb_data" | jq ".coins = $_coins")
+    _coins=$(printf "$qb_data" | x jq ".coins + $_item")
+    qb_data=$(printf "$qb_data" | x jq ".coins = $_coins")
     printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
     ___qb_success_log_info "$(ui bold yellow "$_name"), add coin list successfully"
     qb ls
@@ -109,8 +113,8 @@ ___qb_control_proxy() {
 ______qb_control_use_proxy() {
     local _address
     local _port
-    _address="$(printf "%s" "$qb_data" | jq -r ".proxy.address")"
-    _port="$(printf "%s" "$qb_data" | jq -r ".proxy.port")"
+    _address="$(printf "%s" "$qb_data" | x jq -r ".proxy.address")"
+    _port="$(printf "%s" "$qb_data" | x jq -r ".proxy.port")"
     if [ "$_address" != 'null' ]; then
         export ALL_PROXY=socks5://"${_address}":"${_port}"
     fi
@@ -125,7 +129,7 @@ ___qb_control_run() {
     local i
     local _timer
     ___qb_draw_logo
-    _timer="$(printf "%s" "$qb_data" | jq -r ".timer")"
+    _timer="$(printf "%s" "$qb_data" | x jq -r ".timer")"
     ______qb_control_use_proxy
 
     ___qb_printf_line
@@ -143,10 +147,10 @@ ___qb_control_run() {
             local _data
             local _usdt_price
             local _time
-            _address="$(printf "%s" "$coin_list" | jq -r ".[${i}].address")"
-            _name="$(printf "%s" "$coin_list" | jq -r ".[${i}].name")"
+            _address="$(printf "%s" "$coin_list" | x jq -r ".[${i}].address")"
+            _name="$(printf "%s" "$coin_list" | x jq -r ".[${i}].name")"
             _data="$(curl https://api.pancakeswap.info/api/v2/tokens/"$_address" 2>/dev/null)" 2>/dev/null
-            _usdt_price=$(printf "%s" "$_data" | jq ".data.price")
+            _usdt_price=$(printf "%s" "$_data" | x jq ".data.price")
             _time="$(date +%H:%M:%S)"
             if [ -z "$_data" ] || [ -z "$_usdt_price" ];then
                 ___qb_printf_net_warm "https://api.pancakeswap.info/api/v2/tokens/${_address}"
