@@ -1,42 +1,77 @@
-# Qb
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/zhengqbbb/qb/blob/main/LICENSE)
+
+<p align="center">
+    <a href="#">
+        <img src="https://user-images.githubusercontent.com/40693636/144716462-5f4dc978-a6af-4b54-8f27-79af05ceccf6.png" alt="image" width="200" data-width="200" data-height="200">
+    </a>
+</p>
+
+<h1 align="center">QB</h1>
+<p align="center">
+    <a href="https://bscscan.com/address/0xa6635781b7fa8a210978b4a718caf3f01a197cc4"><img alt="BNB" src="https://img.shields.io/badge/Binance-tool-yellow.svg?logo=binance&style=flat"><img>
+    <br/>
+    <a href="https://github.com/zhengqbbb/qb/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg"><img>
+    </a>
+    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zhengqbbb/qb?style=social">
+    </br>
+    <a href="https://github.com/zhengqbbb/qb">
+    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/zhengqbbb/qb?logoColor=orange&style=flat-square">
+    <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/zhengqbbb/qb"><img>
+    </a>
+</p>
+<p align="center">
+    <a href="https://github.com/Zhengqbbb/qb/blob/main/README.zh-CN.md">English doc</a>
+    &nbsp; | &nbsp;
+    <a href="https://github.com/Zhengqbbb/qb/blob/main/README.md">简体中文文档</a>
+</p>
+
+
 <!-- TOC -->
 
-- [Qb](#qb)
-    - [What](#what)
-    - [Install](#install)
+- [Introduction](#introduction)
+- [Installation](#installation)
     - [Other installation](#other-installation)
-    - [Base](#base)
-    - [Why](#why)
-    - [Use](#use)
-    - [Test](#test)
+- [Base](#base)
+- [Why](#why)
+- [Use](#use)
+    - [Use in windows](#use-in-windows)
+    - [Use in docker](#use-in-docker)
+- [Test](#test)
+- [Tip Jar](#tip-jar)
 
 <!-- /TOC -->
 
-## What
-🚀 qb is a terminal plugin that can 🌕 **watch your BSC coins price in the terminal**.
+## Introduction
+🚀 qb is a A fast and simple terminal plugin that 🌕 can **watch your BSC coins price in the terminal**.And manage your BSC coins list.
 
-<img alt="demogif" src="https://tva1.sinaimg.cn/large/6ccee0e1gy1gwxfgv4jr1g21nm0oo46t.gif">
 
-## Install
+<img alt="demogif" src="https://tva1.sinaimg.cn/large/6ccee0e1gy1gwxfgv4jr1g21nm0oo46t.gif" />
+
+## Installation
 > base git, curl
-```shell
+```sh
 eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
 ```
 
-## Other installation
+### Other installation
 > base gitee, curl
 ```sh
 eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main/install.sh)"
 ```
 
 ## Base
-- It is based on x-cmd (a powerful shell tool) and pancakeswap api.
+- qb is based on [x-cmd](https://github.com/x-cmd) (An open source terminal tool that will subvert the world of posix shell) and **pancakeswap api**.
 
-- It can work in zsh and common posix shells such as bash.
+- It can work on the most [common shells](#test) on the most common operating systems.Such as bash and zsh.
+
+- Use [jq](https://stedolan.github.io/jq/) (json command line tool) to do json parsing.And **x-cmd** will automatically help us dynamically introduce the static build of jq according to the environment. So we don’t have to worry about jq download.
 
 ## Why
 
+I am Q.ben,A frontend development engineer, and I am also responsible for the maintenance and development of x-cmd. <br/>
+At the same time, I also have BSC coins. When I was coding, I wanted to check the the coin's USDT price. I needed to open mobile apps or open the webpage to see it, which was very troublesome. I **just** want to look at coin's USDT price simply.<br/>
+So I made qb plugin, which allows me to quickly check the USDT price of my coin in my free time while coding.Quickly open the terminal, and then check the coin's USDT price to continue coding.
+
+- [cointop](https://github.com/cointop-sh/cointop):A shell application for tracking cryptocurrencies.I have used it in the early days, but the page is too complicated. Since I want to see so much information, I should open the webpage or app, and he can’t track the Binance Chain information. 
 
 ## Use
 | command | info | 说明 |
@@ -48,7 +83,33 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 | `qb timer` | **Change** the polling **timer**(s)  | 更改轮询币价时间(s) |
 | `qb proxy` | **Set up** to use **socket5** for proxy  | 添加/修改socket5的代理地址</br>（**国内必须**） |
 
+### Use in windows
+Windows users need to use [Windows terminal](https://github.com/microsoft/terminal) in combination with [WSL](https://docs.microsoft.com/en-us/windows/wsl/install), because this is a terminal based on the posix shell, you should use it like this.
+
+### Use in docker
+demo:
+```sh
+docker run -it ubuntu:latest bash
+apt update
+apt install curl git
+eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
+```
 ## Test
 
-- [x] x86 zsh
-- [x] x86 bash
+| Test | Shell | System |
+|-----------|-------|--------|
+| - [ ]     | sh | wait fix |
+| - [x]     | bash  | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) </br> Debian(x86 & ARM) <br/> Centos(x86 & ARM) |
+| - [x]     | zsh   | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) |
+| - [x]     | ash   | Alpine(x86 & ARM) |
+| - [ ]     | dash | MacOS(x86 & ARM) <br/> wait fix |
+
+## Tip Jar
+If this helps you, you can also buy me a coffee or give the repo **star**.Thanks~
+<br>
+<br>
+Pass BSC/BEP20
+<br>
+[![BNB Tip Jar](https://img.shields.io/badge/BNB-tip-blue.svg?logo=binance&style=flat)](https://bscscan.com/address/0xa6635781b7fa8a210978b4a718caf3f01a197cc4) `0xa6635781b7fa8a210978b4a718caf3f01a197cc4` 
+
+
