@@ -3,8 +3,9 @@
 <!-- TOC -->
 
 - [Qb](#qb)
-    - [Install](#install)
     - [What](#what)
+    - [Install](#install)
+    - [Other installation](#other-installation)
     - [Base](#base)
     - [Why](#why)
     - [Use](#use)
@@ -12,15 +13,22 @@
 
 <!-- /TOC -->
 
-## Install
-```shell
-eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
-```
-
 ## What
 🚀 qb is a terminal plugin that can 🌕 **watch your BSC coins price in the terminal**.
 
 <img alt="demogif" src="https://tva1.sinaimg.cn/large/6ccee0e1gy1gwxfgv4jr1g21nm0oo46t.gif">
+
+## Install
+> base git, curl
+```shell
+eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
+```
+
+## Other installation
+> base gitee, curl
+```sh
+eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main/install.sh)"
+```
 
 ## Base
 - It is based on x-cmd (a powerful shell tool) and pancakeswap api.

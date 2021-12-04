@@ -1,6 +1,8 @@
 # shellcheck shell=sh disable=SC3043
 
 # main
+_REMOTE="${_REMOTE:-github}"
+_G_USER="${_G_USER:-zhengqbbb}"
 ___qb_setup() {
 	[ ! -f "$HOME/.qb/qb.sh" ] && return 1
 	local CAN="$HOME/.profile"
@@ -41,8 +43,6 @@ ___qb_setup() {
 }
 
 ___qb_install() {
-	local REPO="${REPO:-zhengqbbb/qb}"
-	local REMOTE="${REMOTE:-https://github.com/${REPO}.git}"
 	local QB_PATH="${QB_PATH:-$HOME/.qb}"
 	if [ -f  "$QB_PATH/qb.sh" ]; then
 		printf "%s\n" "$(ui yellow "[qb]: Already installed qb")"
@@ -54,7 +54,7 @@ ___qb_install() {
 		printf "%s\n" "$(ui red "[qb]: Error git is not installed")"
 		return 1
 	fi
-	env git clone --depth=1 "$REMOTE" "$QB_PATH" || {
+	env git clone --depth=1 "https://$_REMOTE.com/$_G_USER/qb.git" "$QB_PATH" || {
 	printf "%s\n" "$(ui red "[qb]: Error git clone of qb repo failed")"
     return 1
   }
