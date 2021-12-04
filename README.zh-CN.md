@@ -18,9 +18,9 @@
     </a>
 </p>
 <p align="center">
-    <a href="https://github.com/Zhengqbbb/qb/blob/main/README.zh-CN.md">English doc</a>
+    <a href="https://github.com/Zhengqbbb/qb/blob/main/README.md">English doc</a>
     &nbsp; | &nbsp;
-    <a href="https://github.com/Zhengqbbb/qb/blob/main/README.md">简体中文文档</a>
+    <a href="https://github.com/Zhengqbbb/qb/blob/main/README.zh-CN.md">简体中文文档</a>
 </p>
 
 
