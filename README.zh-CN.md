@@ -97,12 +97,12 @@ eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
 ## 测试
 
 | 测试是否通过 | Shell类似 | 系统 |
-|-----------|-------|--------|
-| - [ ]     | sh | 等待修复 |
-| - [x]     | bash  | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) </br> Debian(x86 & ARM) <br/> Centos(x86 & ARM) |
-| - [x]     | zsh   | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) |
-| - [x]     | ash   | Alpine(x86 & ARM) |
-| - [ ]     | dash |  等待修复 |
+|------------|-------|--------|
+| ❌          | sh | 等待修复 |
+| ✅          | bash  | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) </br> Debian(x86 & ARM) <br/> Centos(x86 & ARM) |
+| ✅           | zsh   | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) |
+| ✅           | ash   | Alpine(x86 & ARM) |
+| ❌           | dash |  等待修复 |
 
 
 ## 打赏

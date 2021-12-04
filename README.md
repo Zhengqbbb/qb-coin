@@ -98,11 +98,11 @@ eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
 
 | Test | Shell | System |
 |-----------|-------|--------|
-| - [ ]     | sh | wait fix |
-| - [x]     | bash  | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) </br> Debian(x86 & ARM) <br/> Centos(x86 & ARM) |
-| - [x]     | zsh   | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) |
-| - [x]     | ash   | Alpine(x86 & ARM) |
-| - [ ]     | dash | MacOS(x86 & ARM) <br/> wait fix |
+| ❌    | sh | wait fix |
+| ✅    | bash  | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) </br> Debian(x86 & ARM) <br/> Centos(x86 & ARM) |
+| ✅     | zsh   | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) |
+| ✅     | ash   | Alpine(x86 & ARM) |
+| ❌     | dash | MacOS(x86 & ARM) <br/> other wait fix |
 
 ## Tip Jar
 If this helps you, you can also buy me a coffee or give the repo **star**.Thanks~
