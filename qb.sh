@@ -50,10 +50,11 @@ ___qb_control_ls() {
         printf "%-10s  %-40s %s\n" \
             "$(ui bold yellow "${i} ➜")" \
             "$(___qb_printf_key_value 'Name' "$(printf "%s" "$coin_list" | x jq -r ".[${i}].name")")" \
-            "$(___qb_printf_key_value 'Address' "$(printf "%s" "$coin_list" | x jq -r ".[${i}].address")")"
+            "$(ui bold yellow "➜") $(___qb_printf_key_value 'Address' "$(printf "%s" "$coin_list" | x jq -r ".[${i}].address")")"
         i=$((i+1))
     done
     ___qb_printf_line
+    unset i
 }
 
 ###
@@ -64,7 +65,7 @@ ___qb_control_add() {
     local _address
     local _data
     local _name
-    read -p "$(ui bold green 'Print BSC coin address') $(ui bold yellow '➜') " _address
+    ui prompt "$(ui bold green 'Enter BSC coin address')" _address
     if [ -z "$_address" ];then
         ___qb_error_log_info "Empty data"
         return 1
@@ -73,7 +74,7 @@ ___qb_control_add() {
     ______qb_control_use_proxy
     _data="$(curl https://api.pancakeswap.info/api/v2/tokens/"$_address" 2>/dev/null)" 2>/dev/null
     _name="$(printf "%s" "$_data" | x jq -r ".data.symbol")"
-    if [ -z "$_data" ] || [ -z "$_name" ];then
+    if [ -z "$_data" ] || [ "$_name" = "null" ];then
         ___qb_printf_net_warm "https://api.pancakeswap.info/api/v2/tokens/${_address}"
         return 1
     fi
@@ -85,15 +86,47 @@ ___qb_control_add() {
     printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
     ___qb_success_log_info "$(ui bold yellow "$_name"), add coin list successfully"
     qb ls
+    unset _address _data _name _item _coins
 }
 
 ___qb_control_del() {
     ___qb_control_ls
+    local _index
+    local _has_data
+    local _name
+    local _is_sure
+    if [ "$coin_list_length" -eq 0 ]; then
+        ___qb_info_log_info 'Empty data list'
+        return 1
+    fi
+    ui prompt "$(ui bold green 'Enter the index of the list you want to delete')" _index "=~" "[0-9]*"
+    [ "$coin_list_length" -gt "$_index" ] && _has_data='true'
+    if [ -z $_has_data ];then
+        ___qb_error_log_info "Error Index: $_index"
+        return 1
+    fi
+    _name="$(printf "%s" "$coin_list" | x jq -r ".[${_index}].name")"
+    ui prompt "Are you sure you want to delete $(ui bold yellow "$_name") (y/n)" _is_sure
+    if [ -n "$_is_sure" ] && [ "$_is_sure" != 'y' ];then
+        return 1
+    fi
+    qb_data="$(printf "%s" "$qb_data" | x jq "del(.coins[$_index])")"
+    ___qb_success_log_info "Successfully deleted $(ui bold yellow "$_name") $(ui bold green 'in your list')"
+    printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
+    unset _index _has_data _name _is_sure
     return 0
 }
 
 ___qb_control_timer() {
-    echo 'time'
+    local _timer
+    local _has_timer
+    _has_timer="$(printf "%s" "$qb_data" | x jq 'has("timer")')"
+    [ "$_has_timer" = 'true' ] && _timer="$(printf "%s" "$qb_data" | x jq ".timer")" && ___qb_info_log_info "Your refresh timer is $_timer s"
+    ui prompt "$(ui bold green 'Enter the set refresh timer(s)')" _timer "=~" "[0-9]*"
+    qb_data="$(printf "%s" "$qb_data" | x jq ".timer=$_timer")"
+    printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
+    ___qb_success_log_info "Your refresh timer(s) is setted: $(ui bold yellow "${_timer}")"
+    unset _timer
     return 0
 }
 
@@ -103,7 +136,27 @@ ___qb_control_timer() {
     # Not only your local, you can also use your local area network, such as wifi: socks5://192.168.31.1:1086
 ###
 ___qb_control_proxy() {
-    echo 'proxy'
+    local _host
+    local _port
+    local _address
+    _host="$(printf "%s" "$qb_data" | x jq '.proxy' | x jq 'has("host")')"
+    if [ "$_host" = 'true' ];then
+        _address="socks5://$(printf "%s" "$qb_data" | x jq -r '.proxy.host'):$(printf "%s" "$qb_data" | x jq -r '.proxy.port')"
+        ___qb_info_log_info "Your socket5 proxy address is $(ui underline bold yellow "$_address")"
+    fi
+    ui prompt "$(ui bold green 'Enter the host of the proxy.Such as ')$(ui bold underline yellow '127.0.0.1')" _host
+    ui prompt "$(ui bold green 'Enter the port of the proxy.Such as ')$(ui bold underline yellow '1086')" _port
+    if [ -z "$_port" ];then
+        ___qb_error_log_info "Error Data host:$_host | port:$_port"
+        return 1
+    fi
+    _address="socks5://$_host:$_port"
+    _host="\"$_host\""
+    _port="\"$_port\""
+    qb_data="$(printf "%s" "$qb_data" | x jq ".proxy.host=$_host" | x jq ".proxy.port=$_port")"
+    printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
+    ___qb_success_log_info "Your socket5 proxy address is setted: $(ui bold underline yellow "${_address}")"
+    unset _host _port _address
     return 0
 }
 
@@ -111,14 +164,14 @@ ___qb_control_proxy() {
     # @description: use socket5 proxy in terminal.Can be in bash and zsh
 ###
 ______qb_control_use_proxy() {
-    local _address
+    local _host
     local _port
-    _address="$(printf "%s" "$qb_data" | x jq -r ".proxy.address")"
+    _host="$(printf "%s" "$qb_data" | x jq -r ".proxy.host")"
     _port="$(printf "%s" "$qb_data" | x jq -r ".proxy.port")"
-    if [ "$_address" != 'null' ]; then
-        export ALL_PROXY=socks5://"${_address}":"${_port}"
+    if [ "${_host}" != 'null' ]; then
+        export ALL_PROXY=socks5://"${_host}":"${_port}"
     fi
-    unset _address _port
+    unset _host _port
 }
 
 ###
@@ -130,6 +183,7 @@ ___qb_control_run() {
     local _timer
     ___qb_draw_logo
     _timer="$(printf "%s" "$qb_data" | x jq -r ".timer")"
+    [ "$_timer" = 'null' ] && _timer=10
     ______qb_control_use_proxy
 
     ___qb_printf_line
@@ -149,8 +203,8 @@ ___qb_control_run() {
             local _time
             _address="$(printf "%s" "$coin_list" | x jq -r ".[${i}].address")"
             _name="$(printf "%s" "$coin_list" | x jq -r ".[${i}].name")"
-            _data="$(curl https://api.pancakeswap.info/api/v2/tokens/"$_address" 2>/dev/null)" 2>/dev/null
-            _usdt_price=$(printf "%s" "$_data" | x jq ".data.price")
+            _data="$(curl --connect-timeout 8 -m 15 https://api.pancakeswap.info/api/v2/tokens/"$_address" 2>/dev/null)" 2>/dev/null
+            _usdt_price=$(printf "%s" "$_data" | x jq ".data.price" 2>/dev/null)
             _time="$(date +%H:%M:%S)"
             if [ -z "$_data" ] || [ -z "$_usdt_price" ];then
                 ___qb_printf_net_warm "https://api.pancakeswap.info/api/v2/tokens/${_address}"

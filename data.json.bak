@@ -1,9 +1,5 @@
 {
     "timer": 15,
-    "proxy":{
-        "address": "127.0.0.1",
-        "port": "1086"
-    },
     "coins": [
         {
             "name": "BTCB",
