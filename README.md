@@ -105,7 +105,7 @@ eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
 | ❌     | dash | MacOS(x86 & ARM) <br/> other wait fix |
 
 ## Tip Jar
-If you think this project has helped you, and you think this project is good, Could u can also buy me a coffee or give the repo **star**.Thanks~
+If you think this project has helped you, and you think this project is good, Could u take me a coffee or give the repo **star**.Thanks~
 <br>
 <br>
 Pass BSC/BEP20
