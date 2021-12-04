@@ -29,7 +29,7 @@
 - [介绍](#介绍)
 - [下载](#下载)
     - [Gitee源下载](#gitee源下载)
-- [构成](#构成)
+- [组成](#组成)
 - [痛点](#痛点)
 - [使用](#使用)
     - [在windows中使用](#在windows中使用)
@@ -57,10 +57,10 @@ eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
 eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main/install.sh)"
 ```
 
-## 构成
+## 组成
 - qb 是基于 [x-cmd](https://github.com/x-cmd) (一款即将改变posix shell世界的开源终端工具) 和 并使用了 **薄饼的API**.
 
-- 他可以在常见的shell环境使用，比如bash和zsh。
+- qb可以在常见的posix shell环境使用，比如bash和zsh。
 
 - 使用了[jq](https://stedolan.github.io/jq/) (shell json的处理工具)去完成json的解析，同时x-cmd会动态判断你的环境下载静态编译文件，所以我们无需担心jq下载问题。
 
