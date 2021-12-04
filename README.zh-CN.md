@@ -91,7 +91,7 @@ Windows需要使用[Windows terminal](https://github.com/microsoft/terminal) 配
 docker run -it ubuntu:latest bash
 apt update
 apt install curl git
-eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
+eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main/install.sh)"
 ```
 
 ## 测试
