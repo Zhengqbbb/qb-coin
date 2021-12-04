@@ -106,7 +106,7 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 
 
 ## 打赏
-如果这帮助到你了，你可以请我喝杯咖啡或者给一个**star**
+如果你觉得这个项目对你有帮助，而且你觉得这个项目不错，不妨请我喝杯咖啡或者给一个**star**
 <br>
 <br>
 通过 BSC/BEP20
