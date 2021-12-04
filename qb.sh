@@ -43,10 +43,10 @@ A
 ___qb_control_ls() {
     local i=0
     ___qb_printf_line
-    if [ "$coin_list_length" -eq 0 ]; then
+    if [ -z "$coin_list_length" ] || [ "$coin_list_length" -eq 0 ]; then
         ___qb_info_log_info 'Empty data list'
     fi
-    while [ $i -lt "${coin_list_length}" ]; do
+    while [ $i -lt "$coin_list_length" ]; do
         printf "%-10s  %-40s %s\n" \
             "$(ui bold yellow "${i} ➜")" \
             "$(___qb_printf_key_value 'Name' "$(printf "%s" "$coin_list" | x jq -r ".[${i}].name")")" \
@@ -72,7 +72,7 @@ ___qb_control_add() {
     fi
     ___qb_info_log_info "Loading coin data..."
     ______qb_control_use_proxy
-    _data="$(curl https://api.pancakeswap.info/api/v2/tokens/"$_address" 2>/dev/null)" 2>/dev/null
+    _data="$(curl --connect-timeout 8 -m 15 https://api.pancakeswap.info/api/v2/tokens/"$_address" 2>/dev/null)" 2>/dev/null
     _name="$(printf "%s" "$_data" | x jq -r ".data.symbol")"
     if [ -z "$_data" ] || [ "$_name" = "null" ];then
         ___qb_printf_net_warm "https://api.pancakeswap.info/api/v2/tokens/${_address}"
@@ -95,7 +95,7 @@ ___qb_control_del() {
     local _has_data
     local _name
     local _is_sure
-    if [ "$coin_list_length" -eq 0 ]; then
+    if [ -z "$coin_list_length" ] || [ "$coin_list_length" -eq 0 ]; then
         ___qb_info_log_info 'Empty data list'
         return 1
     fi
@@ -168,7 +168,7 @@ ______qb_control_use_proxy() {
     local _port
     _host="$(printf "%s" "$qb_data" | x jq -r ".proxy.host")"
     _port="$(printf "%s" "$qb_data" | x jq -r ".proxy.port")"
-    if [ "${_host}" != 'null' ]; then
+    if [ -n "$_host" ] && [ "${_host}" != 'null' ]; then
         export ALL_PROXY=socks5://"${_host}":"${_port}"
     fi
     unset _host _port
@@ -187,7 +187,7 @@ ___qb_control_run() {
     ______qb_control_use_proxy
 
     ___qb_printf_line
-    if [ "$coin_list_length" -eq 0 ]; then
+    if [ -z "$coin_list_length" ] || [ "$coin_list_length" -eq 0 ]; then
         ___qb_info_log_info 'Empty data list'
         ___qb_printf_line
         return 1
@@ -195,7 +195,7 @@ ___qb_control_run() {
 
     while true; do
         i=0
-        while [ $i -lt "${coin_list_length}" ]; do
+        while [ $i -lt "$coin_list_length" ]; do
             local _address
             local _name
             local _data
