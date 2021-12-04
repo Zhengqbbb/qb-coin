@@ -86,8 +86,13 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 Windows需要使用[Windows terminal](https://github.com/microsoft/terminal) 配合 [WSL](https://docs.microsoft.com/en-us/windows/wsl/install), 因为这才是近似基于posix shell的终端，你也应该在日常这样使用
 
 ### 在docker之中使用
-例如：
 ```sh
+# 基于 Alpine linux/amd64. 镜像大小: 22.8MB
+docker pull qben/qb:latest && docker run -it qben/qb:latest ash
+```
+
+```sh
+# 当然你也可以这样玩
 docker run -it ubuntu:latest bash
 apt update
 apt install curl git

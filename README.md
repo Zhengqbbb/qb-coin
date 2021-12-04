@@ -30,8 +30,8 @@
 - [Introduction](#introduction)
 - [Installation](#installation)
     - [Other installation](#other-installation)
-- [Base](#base)
-- [Why](#why)
+- [How It Works](#how-it-works)
+- [Why Do](#why-do)
 - [Use](#use)
     - [Use in windows](#use-in-windows)
     - [Use in docker](#use-in-docker)
@@ -58,14 +58,14 @@ eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
 eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main/install.sh)"
 ```
 
-## Base
+## How It Works
 - qb is based on [x-cmd](https://github.com/x-cmd) (An open source terminal tool that will subvert the world of posix shell) and **pancakeswap api**.
 
 - It can work on the most [common shells](#test) on the most common operating systems.Such as bash and zsh.
 
 - Use [jq](https://stedolan.github.io/jq/) (json command line tool) to do json parsing.And **x-cmd** will automatically help us dynamically introduce the static build of jq according to the environment. So we don’t have to worry about jq download.
 
-## Why
+## Why Do
 
 I am Q.ben,A frontend development engineer, and I am also responsible for the maintenance and development of x-cmd. <br/>
 At the same time, I also have BSC coins. When I was coding, I wanted to check the the coin's USDT price. I needed to open mobile apps or open the webpage to see it, which was very troublesome. I **just** want to look at coin's USDT price simply.<br/>
@@ -87,8 +87,13 @@ So I made qb plugin, which allows me to quickly check the USDT price of my coin 
 Windows users need to use [Windows terminal](https://github.com/microsoft/terminal) in combination with [WSL](https://docs.microsoft.com/en-us/windows/wsl/install), because this is a terminal based on the posix shell, you should use it like this.
 
 ### Use in docker
-demo:
 ```sh
+# Base Alpine linux/amd64. Size: 22.8MB
+docker pull qben/qb:latest && docker run -it qben/qb:latest ash
+```
+
+```sh
+# you can also do it
 docker run -it ubuntu:latest bash
 apt update
 apt install curl git
