@@ -8,5 +8,3 @@ git remote remove github 2>/dev/null
 git remote add github git@github.com:Zhengqbbb/qb.git
 git push github
 
-git push gitee main
-git push github main
