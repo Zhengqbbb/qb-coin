@@ -81,7 +81,7 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 | `qb add` | 添加BSC地址保存在本地列表之中 |
 | `qb del` | 在本地列表删除指定索引BSC地址 |
 | `qb timer` | 更改轮询币价时间(单位：秒) |
-| `qb proxy` | 添加/修改socket5的代理地址</br>（**国内必须**，当然也可以使用本地局域网中其他人的地址</br>比如同事的，输入他的ip加他socket5的端口） |
+| `qb proxy` | 添加/修改socket5的代理地址</br>（**国内必须**，当然也可以使用本地局域网中其他人的地址</br>比如同事的，输入他的ip加他socket5的端口）<br/>将host和port都不输入则会取消代理 |
 
 ### 在windows中使用
 Windows需要使用[Windows terminal](https://github.com/microsoft/terminal) 配合 [WSL](https://docs.microsoft.com/en-us/windows/wsl/install), 因为这才是近似基于posix shell的终端，你日常也应该这样使用。
