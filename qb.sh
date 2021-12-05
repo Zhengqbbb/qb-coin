@@ -136,19 +136,24 @@ ___qb_control_timer() {
     # Not only your local, you can also use your local area network, such as wifi: socks5://192.168.31.1:1086
 ###
 ___qb_control_proxy() {
+    local _has_host
     local _host
     local _port
     local _address
-    _host="$(printf "%s" "$qb_data" | x jq '.proxy' | x jq 'has("host")')"
-    if [ "$_host" = 'true' ];then
+    _has_host="$(printf "%s" "$qb_data" | x jq '.proxy' | x jq 'has("host")')"
+    _host="$(printf "%s" "$qb_data" | x jq -r '.proxy.host')"
+    if [ "$_has_host" = 'true' ] && [ "$_host" != 'unset' ];then
         _address="socks5://$(printf "%s" "$qb_data" | x jq -r '.proxy.host'):$(printf "%s" "$qb_data" | x jq -r '.proxy.port')"
         ___qb_info_log_info "Your socket5 proxy address is $(ui underline bold yellow "$_address")"
     fi
     ui prompt "$(ui bold green 'Enter the host of the proxy.Such as ')$(ui bold underline yellow '127.0.0.1')" _host
     ui prompt "$(ui bold green 'Enter the port of the proxy.Such as ')$(ui bold underline yellow '1086')" _port
-    if [ -z "$_port" ];then
-        ___qb_error_log_info "Error Data host:$_host | port:$_port"
-        return 1
+    if [ -z "$_host" ] && [ -z "$_port" ];then
+        qb_data="$(printf "%s" "$qb_data" | x jq '.proxy.host="unset"' | x jq '.proxy.port="unset"')"
+        printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
+        export ALL_PROXY=
+        ___qb_success_log_info "Your socket5 proxy proxy has been $(ui bold cyan 'cancelled')"
+        return 0
     fi
     _address="socks5://$_host:$_port"
     _host="\"$_host\""
@@ -156,7 +161,7 @@ ___qb_control_proxy() {
     qb_data="$(printf "%s" "$qb_data" | x jq ".proxy.host=$_host" | x jq ".proxy.port=$_port")"
     printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
     ___qb_success_log_info "Your socket5 proxy address is setted: $(ui bold underline yellow "${_address}")"
-    unset _host _port _address
+    unset _has_host _host _port _address
     return 0
 }
 
@@ -170,6 +175,8 @@ ______qb_control_use_proxy() {
     _port="$(printf "%s" "$qb_data" | x jq -r ".proxy.port")"
     if [ -n "$_host" ] && [ "${_host}" != 'null' ]; then
         export ALL_PROXY=socks5://"${_host}":"${_port}"
+    elif [ "${_host}" = 'unset' ] && [ "${_port}" = 'unset' ];then
+        export ALL_PROXY=
     fi
     unset _host _port
 }
