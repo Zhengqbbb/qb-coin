@@ -71,7 +71,7 @@ I am Q.ben,A frontend development engineer, and I am also responsible for the ma
 At the same time, I also have BSC coins. When I was coding, I wanted to check the the coin's USDT price. I needed to open mobile apps or open the webpage to see it, which was very troublesome. I **just** want to look at coin's USDT price simply.<br/>
 So I made qb plugin, which allows me to quickly check the USDT price of my coin in my free time while coding.Quickly open the terminal, and then check the coin's USDT price to continue coding.
 
-- [cointop](https://github.com/cointop-sh/cointop): A shell application for tracking cryptocurrencies.I have used it in the early days, but the page is too complicated. Since I want to see so much information. Then what I should open is the webpage or mobile app, and he can’t track the Binance Chain information. 
+- [cointop](https://github.com/cointop-sh/cointop): A shell application for tracking cryptocurrencies.I have used it in the early days, but the page is too complicated. Since I want to see so much information. Then what I should open is the webpage or mobile app, and it seems unable to track Binance Chain information.
 
 ## Use
 | command | info | 说明 |
