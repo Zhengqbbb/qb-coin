@@ -10,7 +10,8 @@
     <br/>
     <a href="https://github.com/zhengqbbb/qb/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg"><img>
     </a>
-    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zhengqbbb/qb?style=social">
+    <a href="https://github.com/zhengqbbb/qb"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zhengqbbb/qb?style=social"></a>
+    <a href="https://hub.docker.com/repository/docker/qben/qb"><img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb?logo=docker"><img></a>
     <br/>
     <a href="https://github.com/zhengqbbb/qb">
     <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/zhengqbbb/qb?logoColor=orange&style=flat-square">
@@ -33,7 +34,7 @@
 - [痛点](#痛点)
 - [使用](#使用)
     - [在windows中使用](#在windows中使用)
-    - [在docker之中使用](#在docker之中使用)
+    - [Use in docker](#use-in-docker)
 - [测试](#测试)
 - [打赏](#打赏)
 
@@ -85,14 +86,26 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 ### 在windows中使用
 Windows需要使用[Windows terminal](https://github.com/microsoft/terminal) 配合 [WSL](https://docs.microsoft.com/en-us/windows/wsl/install), 因为这才是近似基于posix shell的终端，你日常也应该这样使用。
 
-### 在docker之中使用
-```sh
-# 基于 Alpine linux/amd64. 镜像大小: 22.8MB
-docker pull qben/qb:latest && docker run -it qben/qb:latest ash
-```
+### Use in docker
+
+<p>
+<a href="https://hub.docker.com/repository/docker/qben/qb">
+<img alt="Docker Base-alpine" src="https://img.shields.io/badge/docker%20base-alpine-blue?logo=docker">
+<img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb"><img>
+<img alt="Docker Stars" src="https://img.shields.io/docker/stars/qben/qb">
+<img alt="Docker Image Size (16.7M)" src="https://img.shields.io/docker/image-size/qben/qb">
+</a>
+</p>
 
 ```sh
-# 当然你想要在一个隔离环境中使用，也可以
+# 基于 Alpine linux/amd64.
+docker run -it qben/qb:latest ash
+```
+
+---
+
+```sh
+# 当然你想要在一个其他环境中使用，例如：
 docker run -it ubuntu:latest bash
 apt update
 apt install curl git

@@ -6,13 +6,15 @@
 </p>
 
 <h1 align="center">QB</h1>
+
 <p align="center">
     <a href="https://bscscan.com/address/0xa6635781b7fa8a210978b4a718caf3f01a197cc4"><img alt="BNB" src="https://img.shields.io/badge/Binance-tool-yellow.svg?logo=binance&style=flat"><img>
     <br/>
     <a href="https://github.com/zhengqbbb/qb/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg"><img>
     </a>
-    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zhengqbbb/qb?style=social">
-    </br>
+    <a href="https://github.com/zhengqbbb/qb"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zhengqbbb/qb?style=social"></a>
+    <a href="https://hub.docker.com/repository/docker/qben/qb"><img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb?logo=docker"><img></a>
+    <br/>
     <a href="https://github.com/zhengqbbb/qb">
     <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/zhengqbbb/qb?logoColor=orange&style=flat-square">
     <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/zhengqbbb/qb"><img>
@@ -87,13 +89,25 @@ So I made qb plugin, which allows me to quickly check the USDT price of my coin 
 Windows users need to use [Windows terminal](https://github.com/microsoft/terminal) in combination with [WSL](https://docs.microsoft.com/en-us/windows/wsl/install), because this is a terminal based on the posix shell, you should use it like this.
 
 ### Use in docker
-```sh
-# Base Alpine linux/amd64. Imgae Size: 22.8MB
-docker pull qben/qb:latest && docker run -it qben/qb:latest ash
-```
+
+<p>
+<a href="https://hub.docker.com/repository/docker/qben/qb">
+<img alt="Docker Base-alpine" src="https://img.shields.io/badge/docker%20base-alpine-blue?logo=docker">
+<img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb"><img>
+<img alt="Docker Stars" src="https://img.shields.io/docker/stars/qben/qb">
+<img alt="Docker Image Size (16.7M)" src="https://img.shields.io/docker/image-size/qben/qb">
+</a>
+</p>
 
 ```sh
-# you can also do it
+# Base Alpine linux/amd64.
+docker run -it qben/qb:latest ash
+```
+
+---
+
+```sh
+# you can also do it. Demo:
 docker run -it ubuntu:latest bash
 apt update
 apt install curl git
