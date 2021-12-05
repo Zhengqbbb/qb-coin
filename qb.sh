@@ -173,10 +173,11 @@ ______qb_control_use_proxy() {
     local _port
     _host="$(printf "%s" "$qb_data" | x jq -r ".proxy.host")"
     _port="$(printf "%s" "$qb_data" | x jq -r ".proxy.port")"
-    if [ -n "$_host" ] && [ "${_host}" != 'null' ]; then
+   
+    if  [ "${_host}" = 'unset' ] && [ "${_port}" = 'unset' ]; then
+        [ -n "$ALL_PROXY" ] && export ALL_PROXY=
+    elif [ -n "$_host" ] && [ "${_host}" != 'null' ];then
         export ALL_PROXY=socks5://"${_host}":"${_port}"
-    elif [ "${_host}" = 'unset' ] && [ "${_port}" = 'unset' ];then
-        export ALL_PROXY=
     fi
     unset _host _port
 }

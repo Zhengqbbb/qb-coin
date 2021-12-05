@@ -2,12 +2,12 @@
     "timer": 15,
     "coins": [
         {
-            "name": "BTCB",
-            "address": "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c"
+            "name": "WBNB",
+            "address": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
         },
         {
             "name": "GMR",
-            "address": "0x0523215dcafbf4e4aa92117d13c6985a3bef27d7"
+            "address": "0xADCa52302e0a6c2d5D68EDCdB4Ac75DeB5466884"
         },
         {
             "name": "BIT",
