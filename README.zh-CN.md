@@ -33,8 +33,8 @@
 - [组成](#组成)
 - [痛点](#痛点)
 - [使用](#使用)
-    - [在windows中使用](#在windows中使用)
-    - [Use in docker](#use-in-docker)
+    - [在Windows中使用](#在windows中使用)
+    - [在Docker中使用](#在docker中使用)
 - [测试](#测试)
 - [打赏](#打赏)
 
@@ -83,10 +83,10 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 | `qb timer` | 更改轮询币价时间(单位：秒) |
 | `qb proxy` | 添加/修改socket5的代理地址</br>（**国内必须**，当然也可以使用本地局域网中其他人的地址</br>比如同事的，输入他的ip加他socket5的端口）<br/>将host和port都不输入则会取消代理 |
 
-### 在windows中使用
+### 在Windows中使用
 Windows需要使用[Windows terminal](https://github.com/microsoft/terminal) 配合 [WSL](https://docs.microsoft.com/en-us/windows/wsl/install), 因为这才是近似基于posix shell的终端，你日常也应该这样使用。
 
-### Use in docker
+### 在Docker中使用
 
 <p>
 <a href="https://hub.docker.com/repository/docker/qben/qb">
