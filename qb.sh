@@ -214,7 +214,7 @@ ___qb_control_run() {
             _data="$(curl --connect-timeout 8 -m 15 https://api.pancakeswap.info/api/v2/tokens/"$_address" 2>/dev/null)" 2>/dev/null
             _usdt_price=$(printf "%s" "$_data" | x jq ".data.price" 2>/dev/null)
             _time="$(date +%H:%M:%S)"
-            if [ -z "$_data" ] || [ -z "$_usdt_price" ];then
+            if [ -z "$_data" ] || [ -z "$_usdt_price" ] || [ "$_usdt_price" = 'null' ];then
                 ___qb_printf_net_warm "https://api.pancakeswap.info/api/v2/tokens/${_address}"
                 break
             fi
