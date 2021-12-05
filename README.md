@@ -41,7 +41,7 @@
 <!-- /TOC -->
 
 ## Introduction
-🚀 qb is a A fast and simple terminal plugin that 🌕 can **watch your BSC coins price in the terminal**.And manage your BSC coins list.
+🚀 qb is a A fast and simple terminal plugin 🌕 that can **watch your BSC coins price in the terminal**.And manage your local BSC coins list.
 
 
 <img alt="demogif" src="https://tva1.sinaimg.cn/large/6ccee0e1gy1gwxfgv4jr1g21nm0oo46t.gif" />
@@ -71,7 +71,7 @@ I am Q.ben,A frontend development engineer, and I am also responsible for the ma
 At the same time, I also have BSC coins. When I was coding, I wanted to check the the coin's USDT price. I needed to open mobile apps or open the webpage to see it, which was very troublesome. I **just** want to look at coin's USDT price simply.<br/>
 So I made qb plugin, which allows me to quickly check the USDT price of my coin in my free time while coding.Quickly open the terminal, and then check the coin's USDT price to continue coding.
 
-- [cointop](https://github.com/cointop-sh/cointop):A shell application for tracking cryptocurrencies.I have used it in the early days, but the page is too complicated. Since I want to see so much information, I should open the webpage or app, and he can’t track the Binance Chain information. 
+- [cointop](https://github.com/cointop-sh/cointop): A shell application for tracking cryptocurrencies.I have used it in the early days, but the page is too complicated. Since I want to see so much information. Then what I should open is the webpage or mobile app, and he can’t track the Binance Chain information. 
 
 ## Use
 | command | info | 说明 |
@@ -88,7 +88,7 @@ Windows users need to use [Windows terminal](https://github.com/microsoft/termin
 
 ### Use in docker
 ```sh
-# Base Alpine linux/amd64. Size: 22.8MB
+# Base Alpine linux/amd64. Imgae Size: 22.8MB
 docker pull qben/qb:latest && docker run -it qben/qb:latest ash
 ```
 
