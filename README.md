@@ -32,6 +32,7 @@
 - [Introduction](#introduction)
 - [Installation](#installation)
     - [Other installation](#other-installation)
+        - [Use Gitee](#use-gitee)
 - [How It Works](#how-it-works)
 - [Why Do](#why-do)
 - [Use](#use)
@@ -55,7 +56,8 @@ eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
 ```
 
 ### Other installation
-> base gitee, curl
+#### Use Gitee
+> base git, curl
 ```sh
 eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main/install.sh)"
 ```

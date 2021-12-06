@@ -41,7 +41,7 @@
 <!-- /TOC -->
 
 ## 介绍
-🚀 qb 是一款简洁快速的终端插件, 🌕 他可以让你在终端中查看币安生态链上的币价，也可以帮助你管理你的本地的币安链信息，并且国内用户可以方便管理和开启终端代理.
+🚀 qb 是一款轻量级简洁的终端插件, 🌕 可以让你在终端中查看币安生态链上的币价，也可以帮助你管理你的本地的币安链信息，并且国内用户可以方便管理和使用终端代理.
 
 
 <img alt="demogif" src="https://tva1.sinaimg.cn/large/6ccee0e1gy1gwxfgv4jr1g21nm0oo46t.gif" />
@@ -53,7 +53,7 @@ eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
 ```
 
 ### Gitee源下载
-> 需要 gitee, curl
+> 需要 git, curl
 ```sh
 eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main/install.sh)"
 ```
@@ -71,7 +71,7 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 <br>
 于是我开发了qb插件，他让我可以简单，快速去查看我保存在本地币安链上的USDT价格，然后再继续coding。
 
-- [cointop](https://github.com/cointop-sh/cointop): 一款shell的加密货币查看工具。我在早期的时候有使用过...我感觉太复杂并且太多信息了，拜托如果我要这么多信息我应该打开的是手机的app或者网页了，而且很难操作，似乎追踪不了币安生态链的币。
+- [cointop](https://github.com/cointop-sh/cointop): 一款shell的加密货币查看工具。我在早期的时候有使用过...太过于复杂并且大量的信息让人感觉很重很难操作，拜托如果我要这么知道这么多信息我应该打开的是手机的app或者网页了，而且似乎也追踪不了币安生态链的币。
 
 ## 使用
 | 命令 | 说明 |
