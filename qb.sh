@@ -234,3 +234,17 @@ ___qb_control_run() {
         sleep "$_timer"
     done
 }
+
+if [ -n "${BASH_VERSION}${ZSH_VERSION}" ] && [ "${-#*i}" != "$-" ]; then
+    xrc advise
+    advise qb - <<A
+{
+    "ls": null,
+    "add": null,
+    "del": null,
+    "timer": null,
+    "proxy": null,
+    "help": null
+}
+A
+fi
