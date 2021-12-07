@@ -43,8 +43,7 @@
 ## 介绍
 🚀 qb 是一款轻量级简洁的终端插件, 🌕 可以让你在终端中查看币安生态链上的币价，也可以帮助你管理你的本地的币安链信息，并且国内用户可以方便管理和使用终端代理.
 
-
-<img alt="demogif" src="https://tva1.sinaimg.cn/large/6ccee0e1gy1gwxfgv4jr1g21nm0oo46t.gif" />
+![demogif](https://user-images.githubusercontent.com/40693636/144966772-81ab76ba-bd5d-477d-b642-7770dfa26bef.gif)
 
 ## 下载
 > 需要 git, curl。**国内推荐使用gitee源下载**，我会同时维护~

@@ -46,8 +46,7 @@
 ## Introduction
 🚀 qb is a A fast and simple terminal plugin 🌕 that can **watch your BSC coins price in the terminal**.And manage your local BSC coins list.
 
-
-<img alt="demogif" src="https://tva1.sinaimg.cn/large/6ccee0e1gy1gwxfgv4jr1g21nm0oo46t.gif" />
+![demogif](https://user-images.githubusercontent.com/40693636/144966772-81ab76ba-bd5d-477d-b642-7770dfa26bef.gif)
 
 ## Installation
 > base git, curl
