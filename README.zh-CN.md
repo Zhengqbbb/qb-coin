@@ -6,7 +6,7 @@
 
 <h1 align="center">QB</h1>
 <p align="center">
-    <a href="https://bscscan.com/address/0xa6635781b7fa8a210978b4a718caf3f01a197cc4"><img alt="BNB" src="https://img.shields.io/badge/Binance-tool-yellow.svg?logo=binance&style=flat"><img>
+    <a href="https://bscscan.com/address/0xa6635781b7fa8a210978b4a718caf3f01a197cc4"><img alt="Binance-tool" src="https://img.shields.io/badge/Binance-tool-yellow.svg?logo=binance&style=flat"><img>
     <br/>
     <a href="https://github.com/zhengqbbb/qb/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg"><img>
     </a>
@@ -69,9 +69,9 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 我是一名前端开发，目前正在致力于开发和维护开源项目x-cmd。<br>
 同时我也是一个币安链的持有人。当我平时写代码的时候，我想要去看看查看此时币价时，我需要打开手机的App或者去网页，这让我感觉非常麻烦，我仅仅只是想简单方便地看一下当前价格而已。
 <br>
-于是我开发了qb插件，他让我可以简单，快速去查看我保存在本地币安链上的USDT价格，然后再继续coding。
+于是我开发了qb插件，他让我可以简单，快速去查看我保存在本地币安链地址上的USDT价格，然后再继续coding。
 
-- [cointop](https://github.com/cointop-sh/cointop): 一款shell的加密货币查看工具。我在早期的时候有使用过...太过于复杂并且大量的信息让人感觉很重很难操作，拜托如果我要这么知道这么多信息我应该打开的是手机的app或者网页了，而且似乎也追踪不了币安生态链的币。
+- [cointop](https://github.com/cointop-sh/cointop): 一款shell的加密货币查看工具。我在早期的时候有使用过...太过于复杂并且大量的信息让人感觉很重很难操作，而且似乎也追踪不了币安生态链的币。
 
 ## 使用
 | 命令 | 说明 |
@@ -92,7 +92,6 @@ Windows需要使用[Windows terminal](https://github.com/microsoft/terminal) 配
 <a href="https://hub.docker.com/repository/docker/qben/qb">
 <img alt="Docker Base-alpine" src="https://img.shields.io/badge/docker%20base-alpine-blue?logo=docker">
 <img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb"><img>
-<img alt="Docker Stars" src="https://img.shields.io/docker/stars/qben/qb">
 <img alt="Docker Image Size (16.7M)" src="https://img.shields.io/docker/image-size/qben/qb">
 </a>
 </p>
@@ -105,7 +104,7 @@ docker run -it qben/qb:latest ash
 ---
 
 ```sh
-# 当然你想要在一个其他环境中使用，例如：
+# 当然如果你想要在一个其他环境中使用，也可以如以下操作：
 docker run -it ubuntu:latest bash
 apt update
 apt install curl git
@@ -124,7 +123,7 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 
 
 ## 打赏
-如果你觉得这个项目对你有帮助，而且你觉得这个项目不错，不妨请我喝杯咖啡或者给一个**star**
+如果你觉得这个项目对日常娱乐有所帮助，并觉得这个项目不错，不妨请我喝杯咖啡或者给项目一个**star**
 <br>
 <br>
 通过 BSC/BEP20

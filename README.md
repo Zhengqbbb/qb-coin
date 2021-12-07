@@ -8,7 +8,7 @@
 <h1 align="center">QB</h1>
 
 <p align="center">
-    <a href="https://bscscan.com/address/0xa6635781b7fa8a210978b4a718caf3f01a197cc4"><img alt="BNB" src="https://img.shields.io/badge/Binance-tool-yellow.svg?logo=binance&style=flat"><img>
+    <a href="https://bscscan.com/address/0xa6635781b7fa8a210978b4a718caf3f01a197cc4"><img alt="Binance-tool" src="https://img.shields.io/badge/Binance-tool-yellow.svg?logo=binance&style=flat"><img>
     <br/>
     <a href="https://github.com/zhengqbbb/qb/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg"><img>
     </a>
@@ -96,7 +96,6 @@ Windows users need to use [Windows terminal](https://github.com/microsoft/termin
 <a href="https://hub.docker.com/repository/docker/qben/qb">
 <img alt="Docker Base-alpine" src="https://img.shields.io/badge/docker%20base-alpine-blue?logo=docker">
 <img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb"><img>
-<img alt="Docker Stars" src="https://img.shields.io/docker/stars/qben/qb">
 <img alt="Docker Image Size (16.7M)" src="https://img.shields.io/docker/image-size/qben/qb">
 </a>
 </p>
@@ -126,7 +125,7 @@ eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
 | ❌     | dash | MacOS(x86 & ARM) <br/> other wait fix |
 
 ## Tip Jar
-If you think this project has helped you, and you think this project is good, Could u take me a coffee or give the repo **star**.Thanks~
+If this project has helped you, and you feel this is nice project, Could u take me a coffee or give the repo **star**.Thanks~
 <br>
 <br>
 Pass BSC/BEP20
