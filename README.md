@@ -102,8 +102,8 @@ Windows users need to use [Windows terminal](https://github.com/microsoft/termin
 </p>
 
 ```sh
-# Base Alpine linux/amd64.
-docker run -it qben/qb:latest ash
+# Base Alpine linux/amd64.Bash 3
+docker run -it qben/qb:latest bash
 ```
 
 ---
