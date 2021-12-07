@@ -16,8 +16,8 @@
     <a href="https://hub.docker.com/repository/docker/qben/qb"><img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb?logo=docker"><img></a>
     <br/>
     <a href="https://github.com/zhengqbbb/qb">
-    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/zhengqbbb/qb?logoColor=orange&style=flat-square">
-    <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/zhengqbbb/qb"><img>
+    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/zhengqbbb/qb?logoColor=orange&style=flat-square&color=red">
+    <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/zhengqbbb/qb?color=red"><img>
     </a>
 </p>
 <p align="center">
