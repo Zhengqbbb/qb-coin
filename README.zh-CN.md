@@ -73,6 +73,8 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 - [cointop](https://github.com/cointop-sh/cointop): 一款shell的加密货币查看工具。我在早期的时候有使用过...太过于复杂并且大量的信息让人感觉很重很难操作，而且似乎也追踪不了币安生态链的币。
 
 ## 使用
+- 交互性终端可使用tab进行补全
+
 | 命令 | 说明 |
 |---------|------|
 | `qb` | 开始运行查看币价 |
