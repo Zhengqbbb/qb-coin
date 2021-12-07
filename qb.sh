@@ -1,4 +1,9 @@
 # shellcheck shell=sh disable=SC3043
+# A fast and simple terminal plugin that can watch your BSC price in the terminal.
+# https://github.com/Zhengqbbb/qb
+# v1.0.0-beta1
+# Copyright (c) 2021 Zhengqbbb
+# License: MIT License
 
 xrc param/v0
 xrc ui

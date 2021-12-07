@@ -1,6 +1,7 @@
 # shellcheck shell=sh disable=SC3043
-
-# main
+# https://github.com/Zhengqbbb/qb
+# Copyright (c) 2021 Zhengqbbb
+# License: MIT License
 _REMOTE="${_REMOTE:-github}"
 _G_USER="${_G_USER:-zhengqbbb}"
 ___qb_setup() {
@@ -24,7 +25,6 @@ ___qb_setup() {
 		fi
 	done
 
-	# shellcheck source=$HOME/.qb/qb.sh
 	[ -f "$HOME/.qb/data.json.bak" ] && cp "$HOME/.qb/data.json.bak" "$HOME/.qb/data.json"
 	. "$HOME/.qb/qb.sh"
 	___qb_draw_logo
@@ -60,9 +60,7 @@ ___qb_install() {
   }
 }
 
-
 # start
-# load x-cmd
 [ ! -f "$HOME/.x-cmd/.boot/boot" ] && eval "$(curl https://get.x-cmd.com)"
 [ ! "$(command -v x)" ] && eval "$(curl https://get.x-cmd.com)"
 xrc ui && printf "%s\n" "$(ui green "[qb]: Successful load x-cmd A powerful shell tool")"
