@@ -98,8 +98,8 @@ Windows需要使用[Windows terminal](https://github.com/microsoft/terminal) 配
 </p>
 
 ```sh
-# 基于 Alpine linux/amd64.
-docker run -it qben/qb:latest ash
+# 基于 Alpine linux/amd64.Bash:3
+docker run -it qben/qb:latest bash
 ```
 
 ---
