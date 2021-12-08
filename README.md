@@ -77,7 +77,9 @@ So I made qb plugin, which allows me to quickly check the USDT price of my coin 
 - [cointop](https://github.com/cointop-sh/cointop): A shell application for tracking cryptocurrencies.I have used it in the early days, but the page is too complicated. Since I want to see so much information. Then what I should open is the webpage or mobile app, and it seems unable to track Binance Chain information.
 
 ## Use
-- Interactive terminal can use tab key to complete
+![feature-demo](https://user-images.githubusercontent.com/40693636/145143336-2c6ecb19-dc06-415c-b232-8909f4f58704.gif)
+
+- **Interactive terminal can use tab key to complete**
 
 | command | info | 说明 |
 |---------|------|------|
