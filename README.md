@@ -66,8 +66,6 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 
 - It can work on the most [common shells](#test) on the most common operating systems.Such as bash and zsh.
 
-- Use [jq](https://stedolan.github.io/jq/) (json command line tool) to do json parsing.And **x-cmd** will automatically help us dynamically introduce the static build of jq according to the environment. So we don’t have to worry about jq download.
-
 ## Why Do
 
 I am Q.ben,A frontend development engineer, and I am also responsible for the maintenance and development of x-cmd. <br/>
@@ -97,14 +95,14 @@ Windows users need to use [Windows terminal](https://github.com/microsoft/termin
 
 <p>
 <a href="https://hub.docker.com/repository/docker/qben/qb">
-<img alt="Docker Base-alpine" src="https://img.shields.io/badge/docker%20base-alpine-blue?logo=docker">
+<img alt="Docker Base-alpine" src="https://img.shields.io/badge/docker%20base-Debian-blue?logo=docker">
 <img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb"><img>
 <img alt="Docker Image Size (16.7M)" src="https://img.shields.io/docker/image-size/qben/qb">
 </a>
 </p>
 
 ```sh
-# Base Alpine linux/amd64.Bash 3
+# Base Debian linux/amd64.
 docker run -it qben/qb:latest bash
 ```
 
@@ -124,8 +122,8 @@ eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
 | ❌    | sh | wait fix |
 | ✅    | bash  | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) </br> Debian(x86 & ARM) <br/> Centos(x86 & ARM) |
 | ✅     | zsh   | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) |
-| ✅     | ash   | Alpine(x86 & ARM) |
-| ❌     | dash | MacOS(x86 & ARM) <br/> other wait fix |
+| ❌     | ash   | wait fix |
+| ❌     | dash |  wait fix |
 
 ## Tip Jar
 If this project has helped you, and you feel this is nice project, Could u take me a coffee or give the repo **star**.Thanks~

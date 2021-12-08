@@ -62,8 +62,6 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 
 - qb可以在常见的posix shell环境使用，比如bash和zsh。
 
-- 使用了[jq](https://stedolan.github.io/jq/) (shell json的处理工具)去完成json的解析，同时x-cmd会动态判断你的环境下载静态编译文件，所以我们无需担心jq下载问题。
-
 ## 痛点
 我是一名前端开发，目前正在致力于开发和维护开源项目x-cmd。<br>
 同时我也是一个币安链的持有人。当我平时写代码的时候，我想要去看看查看此时币价时，我需要打开手机的App或者去网页，这让我感觉非常麻烦，我仅仅只是想简单方便地看一下当前价格而已。
@@ -93,14 +91,14 @@ Windows需要使用[Windows terminal](https://github.com/microsoft/terminal) 配
 
 <p>
 <a href="https://hub.docker.com/repository/docker/qben/qb">
-<img alt="Docker Base-alpine" src="https://img.shields.io/badge/docker%20base-alpine-blue?logo=docker">
+<img alt="Docker Base-Debian" src="https://img.shields.io/badge/docker%20base-Debian-blue?logo=docker">
 <img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb"><img>
 <img alt="Docker Image Size (16.7M)" src="https://img.shields.io/docker/image-size/qben/qb">
 </a>
 </p>
 
 ```sh
-# 基于 Alpine linux/amd64.Bash:3
+# 基于 Debian linux/amd64.
 docker run -it qben/qb:latest bash
 ```
 
@@ -121,7 +119,7 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 | ❌          | sh | 等待修复 |
 | ✅          | bash  | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) </br> Debian(x86 & ARM) <br/> Centos(x86 & ARM) |
 | ✅           | zsh   | MacOS(x86 & ARM) <br/> Ubuntu(x86 & ARM) |
-| ✅           | ash   | Alpine(x86 & ARM) |
+| ❌           | ash   | 等待修复 |
 | ❌           | dash |  等待修复 |
 
 
