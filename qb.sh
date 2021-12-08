@@ -6,7 +6,6 @@
 # License: MIT License
 
 xrc param/v0
-xrc ui
 . $HOME/.qb/tool.sh
 
 qb(){
@@ -19,7 +18,8 @@ subcommands:
     proxy       "edit the address to use socket5 proxy"
 A
     param:run
-
+    xrc ui
+    xrc json
     if [ "$PARAM_SUBCMD" = "help" ]; then
         qb _param_help_doc
         return 0
@@ -30,9 +30,12 @@ A
     local coin_list
     local coin_list_length=0
     qb_data="$(cat "$qb_source_path/data.json")"
-    coin_list="$(printf "%s" "$qb_data" | x jq ".coins")"
-    coin_list_length="$(printf "%s" "$coin_list" | x jq "length")"
-
+    if [ -z "$qb_data" ] ; then
+        ___qb_error_log_info "Empty source file: $qb_source_path/data.json"
+        return 1
+    fi
+    coin_list="$(json query qb_data.coins)"
+    coin_list_length="$(json length coin_list)"
     if [ -z "$PARAM_SUBCMD" ]; then
         ___qb_control_run
         return 0
@@ -40,10 +43,10 @@ A
     "___qb_control_${PARAM_SUBCMD}" "$@"
 }
 
+___qb_json_unquote() { local _qb_handed="$1"; _qb_handed="${_qb_handed#*\"}"; printf "%s" "${_qb_handed%\"*}";}
 ###
     # @use: `qb ls`
     # @description: list all your coins
-    # use jq but it feel slowly
 ###
 ___qb_control_ls() {
     local i=0
@@ -53,9 +56,9 @@ ___qb_control_ls() {
     fi
     while [ $i -lt "$coin_list_length" ]; do
         printf "%-10s  %-40s %s\n" \
-            "$(ui bold yellow "${i} ➜")" \
-            "$(___qb_printf_key_value 'Name' "$(printf "%s" "$coin_list" | x jq -r ".[${i}].name")")" \
-            "$(ui bold yellow "➜") $(___qb_printf_key_value 'Address' "$(printf "%s" "$coin_list" | x jq -r ".[${i}].address")")"
+            "$(ui bold yellow "$((i+1)) ➜")" \
+            "$(___qb_printf_key_value 'Name' "$(json query coin_list.\[${i}\].name)")" \
+            "$(ui bold yellow "➜") $(___qb_printf_key_value 'Address' "$(json query coin_list.\[${i}\].address)")"
         i=$((i+1))
     done
     ___qb_printf_line
@@ -67,31 +70,29 @@ ___qb_control_ls() {
     # @description: add coin address in your coins list
 ###
 ___qb_control_add() {
-    local _address
+    local _coin_address
     local _data
     local _name
-    ui prompt "$(ui bold green 'Enter BSC coin address')" _address
-    if [ -z "$_address" ];then
+    ui prompt "$(ui bold green 'Enter BSC coin address')" _coin_address
+    if [ -z "$_coin_address" ];then
         ___qb_error_log_info "Empty data"
         return 1
     fi
     ___qb_info_log_info "Loading coin data..."
     ______qb_control_use_proxy
-    _data="$(curl --connect-timeout 8 -m 15 https://api.pancakeswap.info/api/v2/tokens/"$_address" 2>/dev/null)" 2>/dev/null
-    _name="$(printf "%s" "$_data" | x jq -r ".data.symbol")"
-    if [ -z "$_data" ] || [ "$_name" = "null" ];then
-        ___qb_printf_net_warm "https://api.pancakeswap.info/api/v2/tokens/${_address}"
+    _data="$(curl --connect-timeout 10 -m 18 https://api.pancakeswap.info/api/v2/tokens/"$_coin_address" 2>/dev/null)" 2>/dev/null
+    _name=$(json q _data.data.symbol 2>/dev/null)
+    if [ -z "$_data" ] || [ -z "$_name" ];then
+        ___qb_printf_net_warm "https://api.pancakeswap.info/api/v2/tokens/${_coin_address}"
         return 1
     fi
     local _item
-    local _coins
-    _item=$(printf "%s" "[{\"name\": \"${_name}\",\"address\": \"${_address}\"}]")
-    _coins=$(printf "$qb_data" | x jq ".coins + $_item")
-    qb_data=$(printf "$qb_data" | x jq ".coins = $_coins")
+    _item=$(printf "%s" "{\"name\": ${_name},\"address\": \"${_coin_address}\"}")
+    json prepend qb_data.coins "$_item"
     printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
     ___qb_success_log_info "$(ui bold yellow "$_name"), add coin list successfully"
     qb ls
-    unset _address _data _name _item _coins
+    unset _coin_address _data _name _item
 }
 
 ___qb_control_del() {
@@ -105,17 +106,18 @@ ___qb_control_del() {
         return 1
     fi
     ui prompt "$(ui bold green 'Enter the index of the list you want to delete')" _index "=~" "[0-9]*"
+    _index=$((_index-1))
     [ "$coin_list_length" -gt "$_index" ] && _has_data='true'
     if [ -z $_has_data ];then
-        ___qb_error_log_info "Error Index: $_index"
+        ___qb_error_log_info "Error Index: $((_index+1))"
         return 1
     fi
-    _name="$(printf "%s" "$coin_list" | x jq -r ".[${_index}].name")"
+    _name="$(json q coin_list.\[${_index}\].name)"
     ui prompt "Are you sure you want to delete $(ui bold yellow "$_name") (y/n)" _is_sure
     if [ -n "$_is_sure" ] && [ "$_is_sure" != 'y' ];then
         return 1
     fi
-    qb_data="$(printf "%s" "$qb_data" | x jq "del(.coins[$_index])")"
+    qb_data=$(json del qb_data.coins.\[${_index}\])
     ___qb_success_log_info "Successfully deleted $(ui bold yellow "$_name") $(ui bold green 'in your list')"
     printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
     unset _index _has_data _name _is_sure
@@ -124,11 +126,10 @@ ___qb_control_del() {
 
 ___qb_control_timer() {
     local _timer
-    local _has_timer
-    _has_timer="$(printf "%s" "$qb_data" | x jq 'has("timer")')"
-    [ "$_has_timer" = 'true' ] && _timer="$(printf "%s" "$qb_data" | x jq ".timer")" && ___qb_info_log_info "Your refresh timer is $_timer s"
+    _timer="$(___qb_json_unquote "$(json q qb_data.timer)")"
+    [ -n "$_timer" ] && ___qb_info_log_info "Your refresh timer is $_timer s"
     ui prompt "$(ui bold green 'Enter the set refresh timer(s)')" _timer "=~" "[0-9]*"
-    qb_data="$(printf "%s" "$qb_data" | x jq ".timer=$_timer")"
+    json put qb_data.timer "${_timer}" > /dev/null
     printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
     ___qb_success_log_info "Your refresh timer(s) is setted: $(ui bold yellow "${_timer}")"
     unset _timer
@@ -141,29 +142,30 @@ ___qb_control_timer() {
     # Not only your local, you can also use your local area network, such as wifi: socks5://192.168.31.1:1086
 ###
 ___qb_control_proxy() {
-    local _has_host
     local _host
     local _port
     local _address
-    _has_host="$(printf "%s" "$qb_data" | x jq '.proxy' | x jq 'has("host")')"
-    _host="$(printf "%s" "$qb_data" | x jq -r '.proxy.host')"
-    if [ "$_has_host" = 'true' ] && [ "$_host" != 'unset' ];then
-        _address="socks5://$(printf "%s" "$qb_data" | x jq -r '.proxy.host'):$(printf "%s" "$qb_data" | x jq -r '.proxy.port')"
+    _host="$(___qb_json_unquote "$(json q qb_data.proxy.host)")"
+    if [ -n "$_host" ] && [ "$_host" != 'unset' ];then
+        _host=$(___qb_json_unquote "$_host")
+        _port=$(___qb_json_unquote "$(json q qb_data.proxy.port)")
+        _address="socks5://$_host:$_port"
         ___qb_info_log_info "Your socket5 proxy address is $(ui underline bold yellow "$_address")"
     fi
     ui prompt "$(ui bold green 'Enter the host of the proxy.Such as ')$(ui bold underline yellow '127.0.0.1')" _host
     ui prompt "$(ui bold green 'Enter the port of the proxy.Such as ')$(ui bold underline yellow '1086')" _port
     if [ -z "$_host" ] && [ -z "$_port" ];then
-        qb_data="$(printf "%s" "$qb_data" | x jq '.proxy.host="unset"' | x jq '.proxy.port="unset"')"
+        json put qb_data.proxy.host 'unset' > /dev/null
+        json put qb_data.proxy.port 'unset' > /dev/null
         printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
         export ALL_PROXY=
+        export all_proxy=
         ___qb_success_log_info "Your socket5 proxy proxy has been $(ui bold cyan 'cancelled')"
         return 0
     fi
     _address="socks5://$_host:$_port"
-    _host="\"$_host\""
-    _port="\"$_port\""
-    qb_data="$(printf "%s" "$qb_data" | x jq ".proxy.host=$_host" | x jq ".proxy.port=$_port")"
+    json put qb_data.proxy.host "$_host" > /dev/null
+    json put qb_data.proxy.port "$_port" > /dev/null
     printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
     ___qb_success_log_info "Your socket5 proxy address is setted: $(ui bold underline yellow "${_address}")"
     unset _has_host _host _port _address
@@ -176,13 +178,15 @@ ___qb_control_proxy() {
 ______qb_control_use_proxy() {
     local _host
     local _port
-    _host="$(printf "%s" "$qb_data" | x jq -r ".proxy.host")"
-    _port="$(printf "%s" "$qb_data" | x jq -r ".proxy.port")"
+    _host=$(___qb_json_unquote "$(json q qb_data.proxy.host)")
+    _port=$(___qb_json_unquote "$(json q qb_data.proxy.port)")
    
     if  [ "${_host}" = 'unset' ] && [ "${_port}" = 'unset' ]; then
-        [ -n "$ALL_PROXY" ] && export ALL_PROXY=
-    elif [ -n "$_host" ] && [ "${_host}" != 'null' ];then
+        { [ -n "$ALL_PROXY" ] || [ -n "$all_proxy" ] ; } && export ALL_PROXY= && export all_proxy=
+        return 0
+    elif [ -n "$_host" ] ;then
         export ALL_PROXY=socks5://"${_host}":"${_port}"
+        export all_proxy=socks5://"${_host}":"${_port}"
     fi
     unset _host _port
 }
@@ -195,8 +199,8 @@ ___qb_control_run() {
     local i
     local _timer
     ___qb_draw_logo
-    _timer="$(printf "%s" "$qb_data" | x jq -r ".timer")"
-    [ "$_timer" = 'null' ] && _timer=10
+    _timer=$(___qb_json_unquote "$(json q qb_data.timer)")
+    [ -z "$_timer" ] && _timer=10
     ______qb_control_use_proxy
 
     ___qb_printf_line
@@ -214,18 +218,19 @@ ___qb_control_run() {
             local _data
             local _usdt_price
             local _time
-            _address="$(printf "%s" "$coin_list" | x jq -r ".[${i}].address")"
-            _name="$(printf "%s" "$coin_list" | x jq -r ".[${i}].name")"
+            _address=$(___qb_json_unquote "$(json q qb_data.coins.\[${i}\].address)")
+            _name=$(___qb_json_unquote "$(json q qb_data.coins.\[${i}\].name)")
             _data="$(curl --connect-timeout 8 -m 15 https://api.pancakeswap.info/api/v2/tokens/"$_address" 2>/dev/null)" 2>/dev/null
-            _usdt_price=$(printf "%s" "$_data" | x jq ".data.price" 2>/dev/null)
+            [ -n "$_data" ] && _usdt_price=$(___qb_json_unquote "$(json q _data.data.price)")
             _time="$(date +%H:%M:%S)"
-            if [ -z "$_data" ] || [ -z "$_usdt_price" ] || [ "$_usdt_price" = 'null' ];then
+            if [ -z "$_data" ] || [ -z "$_usdt_price" ];then
                 ___qb_printf_net_warm "https://api.pancakeswap.info/api/v2/tokens/${_address}"
                 break
             fi
-            printf "%s %-17s %s\n" \
+            [ -n "$_usdt_price" ] && printf "%s %-17s %s %s\n" \
                 "$(ui bold cyan "[$_time]")" \
                 "$(ui bold yellow "$_name")" \
+                "$(ui bold cyan "➜")" \
                 "$(ui bold yellow 'USDT price:') $(ui bold green "$_usdt_price")"
             i=$((i+1))
             unset _address _name _data _usdt_price _time
