@@ -1,4 +1,8 @@
 {
+    "proxy": {
+        "host": "default",
+        "port": "default"
+    },
     "timer": 15,
     "coins": [
         {

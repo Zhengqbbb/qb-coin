@@ -146,7 +146,7 @@ ___qb_control_proxy() {
     local _port
     local _address
     _host="$(___qb_json_unquote "$(json q qb_data.proxy.host)")"
-    if [ -n "$_host" ] && [ "$_host" != 'unset' ];then
+    if [ -n "$_host" ] && [ "$_host" != 'unset' ] && [ "$_host" != 'default' ];then
         _host=$(___qb_json_unquote "$_host")
         _port=$(___qb_json_unquote "$(json q qb_data.proxy.port)")
         _address="socks5://$_host:$_port"
@@ -184,7 +184,7 @@ ______qb_control_use_proxy() {
     if  [ "${_host}" = 'unset' ] && [ "${_port}" = 'unset' ]; then
         { [ -n "$ALL_PROXY" ] || [ -n "$all_proxy" ] ; } && export ALL_PROXY= && export all_proxy=
         return 0
-    elif [ -n "$_host" ] ;then
+    elif [ -n "$_host" ] && [ "${_host}" != 'default' ];then
         export ALL_PROXY=socks5://"${_host}":"${_port}"
         export all_proxy=socks5://"${_host}":"${_port}"
     fi
