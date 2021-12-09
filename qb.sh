@@ -88,7 +88,7 @@ ___qb_control_add() {
     fi
     local _item
     _item=$(printf "%s" "{\"name\": ${_name},\"address\": \"${_coin_address}\"}")
-    json prepend qb_data.coins "$_item"
+    json push qb_data.coins "$_item"
     printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
     ___qb_success_log_info "$(ui bold yellow "$_name"), add coin list successfully"
     qb ls
