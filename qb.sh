@@ -13,6 +13,7 @@ qb(){
 subcommands:
     ls          "list all your coins"
     add         "add coin address in your coins list"
+    star        "put the selected coin on top"
     del         "delete coin in your coins list"
     timer       "change the refresh timer"
     proxy       "edit the address to use socket5 proxy"
@@ -44,10 +45,6 @@ A
 }
 
 ___qb_json_unquote() { local _qb_handed="$1"; _qb_handed="${_qb_handed#*\"}"; printf "%s" "${_qb_handed%\"*}";}
-###
-    # @use: `qb ls`
-    # @description: list all your coins
-###
 ___qb_control_ls() {
     local i=0
     ___qb_printf_line
@@ -65,10 +62,6 @@ ___qb_control_ls() {
     unset i
 }
 
-###
-    # @use: `qb add`
-    # @description: add coin address in your coins list
-###
 ___qb_control_add() {
     local _coin_address
     local _data
@@ -94,18 +87,19 @@ ___qb_control_add() {
     qb ls
     unset _coin_address _data _name _item
 }
-
-___qb_control_del() {
+______qb_control_list_by_index() {
     ___qb_control_ls
     local _index
     local _has_data
     local _name
     local _is_sure
+    local _item
+    
     if [ -z "$coin_list_length" ] || [ "$coin_list_length" -eq 0 ]; then
         ___qb_info_log_info 'Empty data list'
         return 1
     fi
-    ui prompt "$(ui bold green 'Enter the index of the list you want to delete')" _index "=~" "[0-9]*"
+    ui prompt "$(ui bold green "Enter the index of the list you want to $1")" _index "=~" "[0-9]*"
     _index=$((_index-1))
     [ "$coin_list_length" -gt "$_index" ] && _has_data='true'
     if [ -z $_has_data ];then
@@ -113,15 +107,31 @@ ___qb_control_del() {
         return 1
     fi
     _name="$(json q coin_list.\[${_index}\].name)"
-    ui prompt "Are you sure you want to delete $(ui bold yellow "$_name") (y/n)" _is_sure
-    if [ -n "$_is_sure" ] && [ "$_is_sure" != 'y' ];then
-        return 1
+    if [ "$1" = 'delete' ]; then
+        ui prompt "Are you sure you want to $1 $(ui bold yellow "$_name") (y/n)" _is_sure
+        if [ -n "$_is_sure" ] && [ "$_is_sure" != 'y' ];then
+            return 1
+        fi
+        qb_data=$(json del qb_data.coins.\[${_index}\])
+        ___qb_success_log_info "Successfully deleted $(ui bold yellow "$_name") $(ui bold green 'in your list')"
+        printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
+    else
+        _item="$(json q coin_list.\[${_index}\])"
+        qb_data=$(json del qb_data.coins.\[${_index}\])
+        json prepend qb_data.coins "$_item"
+        ___qb_success_log_info "Successfully star $(ui bold yellow "$_name") $(ui bold green 'in your list')"
+        printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
     fi
-    qb_data=$(json del qb_data.coins.\[${_index}\])
-    ___qb_success_log_info "Successfully deleted $(ui bold yellow "$_name") $(ui bold green 'in your list')"
-    printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
-    unset _index _has_data _name _is_sure
+    unset _index _has_data _name _is_sure _item
     return 0
+}
+
+___qb_control_star() {
+    ______qb_control_list_by_index 'star'
+}
+
+___qb_control_del() {
+     ______qb_control_list_by_index 'delete'
 }
 
 ___qb_control_timer() {
@@ -136,11 +146,6 @@ ___qb_control_timer() {
     return 0
 }
 
-###
-    # @description: reset socket5 proxy in terminal.
-    # @example: socks5://127.0.0.1:1086
-    # Not only your local, you can also use your local area network, such as wifi: socks5://192.168.31.1:1086
-###
 ___qb_control_proxy() {
     local _host
     local _port
@@ -172,9 +177,6 @@ ___qb_control_proxy() {
     return 0
 }
 
-###
-    # @description: use socket5 proxy in terminal.Can be in bash and zsh
-###
 ______qb_control_use_proxy() {
     local _host
     local _port
@@ -191,10 +193,6 @@ ______qb_control_use_proxy() {
     unset _host _port
 }
 
-###
-    # @use: `qb`
-    # @description: show the BSC coins price
-###
 ___qb_control_run() {
     local i
     local _timer
@@ -246,6 +244,7 @@ if [ -n "${BASH_VERSION}${ZSH_VERSION}" ] && [ "${-#*i}" != "$-" ]; then
 {
     "ls": null,
     "add": null,
+    "star": null,
     "del": null,
     "timer": null,
     "proxy": null,

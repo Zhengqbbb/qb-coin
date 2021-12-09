@@ -80,6 +80,7 @@ eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main
 | `qb` | 开始运行查看币价 |
 | `qb ls` | 查看本地存储的币安链的列表 |
 | `qb add` | 添加BSC地址保存在本地列表之中 |
+| `qb star`  | 选择对应币置顶 |
 | `qb del` | 在本地列表删除指定索引BSC地址 |
 | `qb timer` | 更改轮询币价时间(单位：秒) |
 | `qb proxy` | 添加/修改socket5的代理地址</br>（**国内必须**，当然也可以使用本地局域网中其他人的地址</br>比如同事的，输入他的ip加他socket5的端口）<br/>将host和port都不输入则会取消代理 |

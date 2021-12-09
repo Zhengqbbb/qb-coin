@@ -84,6 +84,7 @@ So I made qb plugin, which allows me to quickly check the USDT price of my coin 
 | `qb` | **Start** running to watch coins price  | 开始运行查看币价 |
 | `qb ls` | **View the list** of locally stored BSC coins  | 查看本地存储的币列表 |
 | `qb add` | **Add** BSC address to local list  | 添加BSC地址保存在本地列表之中 |
+| `qb star` | **Put** the selected coin on top  | 选择对应币置顶 |
 | `qb del` | **Delete** the BSC address of <br/> the selected index to the local list  | 在本地列表删除指定BSC地址 |
 | `qb timer` | **Change** the polling **timer**(s)  | 更改轮询币价时间(s) |
 | `qb proxy` | **Set up** to use **socket5** for proxy <br/>If host and port are enter **empty**, the proxy will be cancelled  | 添加/修改socket5的代理地址</br>（**国内必须**）将host和port都不输入则会取消代理 |
