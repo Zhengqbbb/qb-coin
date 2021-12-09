@@ -51,14 +51,14 @@
 ## Installation
 > base git, curl
 ```sh
-eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
+eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/stable/install.sh)"
 ```
 
 ### Other installation
 #### Use Gitee
 > base git, curl
 ```sh
-eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main/install.sh)"
+eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/stable/install.sh)"
 ```
 
 ## How It Works

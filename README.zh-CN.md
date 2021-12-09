@@ -48,13 +48,13 @@
 ## 下载
 > 需要 git, curl。**国内推荐使用gitee源下载**，我会同时维护~
 ```sh
-eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
+eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/stable/install.sh)"
 ```
 
 ### Gitee源下载
 > 需要 git, curl
 ```sh
-eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main/install.sh)"
+eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/stable/install.sh)"
 ```
 
 ## 组成
