@@ -223,6 +223,7 @@ ___qb_control_run() {
             _time="$(date +%H:%M:%S)"
             if [ -z "$_data" ] || [ -z "$_usdt_price" ];then
                 ___qb_printf_net_warm "https://api.pancakeswap.info/api/v2/tokens/${_address}"
+                unset _address _name _data _usdt_price _time
                 break
             fi
             [ -n "$_usdt_price" ] && printf "%s %-17s %s %s\n" \
