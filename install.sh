@@ -54,7 +54,7 @@ ___qb_install() {
 		printf "%s\n" "$(ui red "[qb]: Error git is not installed")"
 		return 1
 	fi
-	env git clone --depth=1 "https://$_REMOTE.com/$_G_USER/qb.git" "$QB_PATH" || {
+	env git clone -b stable --depth=1 "https://$_REMOTE.com/$_G_USER/qb.git" "$QB_PATH" || {
 	printf "%s\n" "$(ui red "[qb]: Error git clone of qb repo failed")"
     return 1
   }
