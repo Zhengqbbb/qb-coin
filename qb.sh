@@ -17,6 +17,7 @@ subcommands:
     del         "delete coin in your coins list"
     timer       "change the refresh timer"
     proxy       "edit the address to use socket5 proxy"
+    account     "load BSC address and check BSC balance"
 A
     param:run
     xrc ui
@@ -30,6 +31,7 @@ A
     local qb_data
     local coin_list
     local coin_list_length=0
+    local _acc_address
     qb_data="$(cat "$qb_source_path/data.json")"
     if [ -z "$qb_data" ] ; then
         ___qb_error_log_info "Empty source file: $qb_source_path/data.json"
@@ -37,6 +39,7 @@ A
     fi
     coin_list="$(json query qb_data.coins)"
     coin_list_length="$(json length coin_list)"
+    _acc_address="$(___qb_json_unquote "$(json query qb_data.accountAddress)")"
     if [ -z "$PARAM_SUBCMD" ]; then
         ___qb_control_run
         return 0
@@ -54,12 +57,69 @@ ___qb_control_ls() {
     while [ $i -lt "$coin_list_length" ]; do
         printf "%-10s  %-40s %s\n" \
             "$(ui bold yellow "$((i+1)) ➜")" \
-            "$(___qb_printf_key_value 'Name' "$(json query coin_list.\[${i}\].name)")" \
-            "$(ui bold yellow "➜") $(___qb_printf_key_value 'Address' "$(json query coin_list.\[${i}\].address)")"
+            "$(___qb_printf_key_value 'Name' "$(___qb_json_unquote "$(json query coin_list.\[${i}\].name)")")" \
+            "$(ui bold yellow "➜") $(___qb_printf_key_value 'Address' "$(___qb_json_unquote "$(json query coin_list.\[${i}\].address)")")"
         i=$((i+1))
     done
     ___qb_printf_line
     unset i
+}
+______qb_account_is_empty() { [ -z "$_acc_address" ] || [ "$_acc_address" = 'default' ] ; }
+___qb_control_account() {
+    local _balance
+    local _time
+    ______qb_control_use_proxy
+    if [ "$1" = 'edit' ];then
+        ___qb_control_account ls
+        ui prompt "$(ui bold green 'Enter your BSC account address')" _acc_address
+        [ -z "$_acc_address" ] && _acc_address='default'
+        json put qb_data.accountAddress "${_acc_address}" > /dev/null
+        printf "%s\n" "$qb_data" > "$qb_source_path/data.json"
+        [ "$_acc_address" = 'default' ] && ___qb_success_log_info "Your BSC account has been $(ui bold cyan 'logouted')" && return
+        ___qb_success_log_info "save your BSC account successfully !"
+        return  0
+    elif [ "$1" = 'ls' ]; then
+        ______qb_account_is_empty && return 1
+        ___qb_printf_line
+        printf "%s\n" "$(ui bold yellow "➜ ")$(___qb_printf_key_value "BSC-Address" "$_acc_address")"
+        ___qb_printf_line
+        return 0
+    elif [ "$1" != 'val' ];then
+        ______qb_account_is_empty && ___qb_info_log_info "Need to add your account address" && ___qb_control_account edit
+        qb account ls
+        ___qb_info_log_info "Loadding BSC address balance..."
+        ___qb_info_log_info "BSC Balance info from: $(ui bold underline yellow https://bscscan.com/address/"$_acc_address")"
+    fi
+    ______qb_account_is_empty && return 0
+    _balance="$(______qb_account_get_account_balance "$_acc_address")"
+    _time="$(date +%H:%M:%S)"
+    printf "\n%s %s %s %s\n" \
+        "$(ui bold cyan "[$_time]")" \
+        "$(ui bold yellow "BSC Balance")" \
+        "$(ui bold cyan "➜")" \
+        "$(ui bold green "$_balance")"
+    unset _time
+}
+###
+ # @param {*} BSC address
+ # @return {*} coin usdt price balance
+###
+______qb_account_get_account_balance() {
+    local _balance
+    _balance=$(curl --connect-timeout 8 -m 15 https://bscscan.com/address/"$1" 2>/dev/null | awk '
+    BEGIN{ _index = 0 }
+    {
+        if (_index != 0) {
+            printf $0
+            exit
+        }
+        isSuccess = match($0, /^<a id="availableBalanceDropdown"/);
+        if (isSuccess != 0) {
+            _index = FNR + 1
+        }
+    }')
+    [ -n "$_balance" ] && printf "%s" "$_balance" && return
+    ___qb_printf_net_warm "https://bscscan.com/address/$1"
 }
 
 ___qb_control_add() {
@@ -234,6 +294,7 @@ ___qb_control_run() {
             i=$((i+1))
             unset _address _name _data _usdt_price _time
         done
+        ___qb_control_account val
         ___qb_printf_line
         sleep "$_timer"
     done
@@ -244,6 +305,10 @@ if [ -n "${BASH_VERSION}${ZSH_VERSION}" ] && [ "${-#*i}" != "$-" ]; then
     advise qb - <<A
 {
     "ls": null,
+    "account": [
+        "ls",
+        "edit"
+    ]
     "add": null,
     "star": null,
     "del": null,

@@ -3,6 +3,7 @@
         "host": "default",
         "port": "default"
     },
+    "accountAddress": "default",
     "timer": 15,
     "coins": [
         {
