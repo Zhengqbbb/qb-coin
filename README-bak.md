@@ -5,7 +5,7 @@
     </a>
 </p>
 
-<h1 align="center">QB(WIP ...)</h1>
+<h1 align="center">QB</h1>
 
 <p align="center">
     <a href="https://bscscan.com/address/0xa6635781b7fa8a210978b4a718caf3f01a197cc4"><img alt="Binance-tool" src="https://img.shields.io/badge/Binance-tool-yellow.svg?logo=binance&style=flat"><img>
@@ -30,10 +30,14 @@
 <!-- TOC -->
 
 - [Introduction](#introduction)
-- [Use in docker](#use-in-docker)
+- [Installation](#installation)
+    - [Other installation](#other-installation)
+        - [Use Gitee](#use-gitee)
 - [How It Works](#how-it-works)
 - [Why Do](#why-do)
 - [Use](#use)
+    - [Use in windows](#use-in-windows)
+    - [Use in docker](#use-in-docker)
 - [Test](#test)
 - [Tip Jar](#tip-jar)
 
@@ -44,19 +48,17 @@
 
 ![demogif](https://user-images.githubusercontent.com/40693636/144966772-81ab76ba-bd5d-477d-b642-7770dfa26bef.gif)
 
-## Use in docker
-
-<p>
-<a href="https://hub.docker.com/repository/docker/qben/qb">
-<img alt="Docker Base-alpine" src="https://img.shields.io/badge/docker%20base-Debian-blue?logo=docker">
-<img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb"><img>
-<img alt="Docker Image Size (16.7M)" src="https://img.shields.io/docker/image-size/qben/qb">
-</a>
-</p>
-
+## Installation
+> base git, curl
 ```sh
-# Base Debian linux/amd64.
-docker run -it qben/qb:latest bash
+eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/stable/install.sh)"
+```
+
+### Other installation
+#### Use Gitee
+> base git, curl
+```sh
+eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/stable/install.sh)"
 ```
 
 ## How It Works
@@ -87,7 +89,33 @@ So I made qb plugin, which allows me to quickly check the USDT price of my coin 
 | `qb timer` | **Change** the polling **timer**(s)  | 更改轮询币价时间(s) |
 | `qb proxy` | **Set up** to use **socket5** for proxy <br/>If host and port are enter **empty**, the proxy will be cancelled  | 添加/修改socket5的代理地址</br>（**国内必须**）将host和port都不输入则会取消代理 |
 
+### Use in windows
+Windows users need to use [Windows terminal](https://github.com/microsoft/terminal) in combination with [WSL](https://docs.microsoft.com/en-us/windows/wsl/install), because this is a terminal based on the posix shell, you should use it like this.
+
+### Use in docker
+
+<p>
+<a href="https://hub.docker.com/repository/docker/qben/qb">
+<img alt="Docker Base-alpine" src="https://img.shields.io/badge/docker%20base-Debian-blue?logo=docker">
+<img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb"><img>
+<img alt="Docker Image Size (16.7M)" src="https://img.shields.io/docker/image-size/qben/qb">
+</a>
+</p>
+
+```sh
+# Base Debian linux/amd64.
+docker run -it qben/qb:latest bash
+```
+
 ---
+
+```sh
+# you can also do it. Demo:
+docker run -it ubuntu:latest bash
+apt update
+apt install curl git
+eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/main/install.sh)"
+```
 ## Test
 
 | Test | Shell | System |
