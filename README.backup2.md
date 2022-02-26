@@ -28,10 +28,13 @@
 <!-- TOC -->
 
 - [介绍](#介绍)
-- [在Docker中使用](#在docker中使用)
+- [下载](#下载)
+    - [Gitee源下载](#gitee源下载)
 - [组成](#组成)
 - [痛点](#痛点)
 - [使用](#使用)
+    - [在Windows中使用](#在windows中使用)
+    - [在Docker中使用](#在docker中使用)
 - [测试](#测试)
 - [打赏](#打赏)
 
@@ -42,21 +45,17 @@
 
 ![demogif](https://user-images.githubusercontent.com/40693636/144966772-81ab76ba-bd5d-477d-b642-7770dfa26bef.gif)
 
-## 在Docker中使用
-
-<p>
-<a href="https://hub.docker.com/repository/docker/qben/qb">
-<img alt="Docker Base-Debian" src="https://img.shields.io/badge/docker%20base-Debian-blue?logo=docker">
-<img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb"><img>
-<img alt="Docker Image Size (16.7M)" src="https://img.shields.io/docker/image-size/qben/qb">
-</a>
-</p>
-
+## 下载
+> 需要 git, curl。**国内推荐使用gitee源下载**，我会同时维护~
 ```sh
-# 基于 Debian linux/amd64.
-docker run -it qben/qb:latest bash
+eval "$(curl https://raw.githubusercontent.com/Zhengqbbb/qb/stable/install.sh)"
 ```
 
+### Gitee源下载
+> 需要 git, curl
+```sh
+eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/stable/install.sh)"
+```
 
 ## 组成
 - qb 是基于 [x-cmd](https://github.com/x-cmd) (一款即将颠覆posix shell世界的开源终端工具) 和 并使用了 **薄饼的API**.
@@ -86,6 +85,33 @@ docker run -it qben/qb:latest bash
 | `qb timer` | 更改轮询币价时间(单位：秒) |
 | `qb proxy` | 添加/修改socket5的代理地址</br>（**国内必须**，当然也可以使用本地局域网中其他人的地址</br>比如同事的，输入他的ip加他socket5的端口）<br/>将host和port都不输入则会取消代理 |
 
+### 在Windows中使用
+Windows需要使用[Windows terminal](https://github.com/microsoft/terminal) 配合 [WSL](https://docs.microsoft.com/en-us/windows/wsl/install), 因为这才是近似基于posix shell的终端，你日常也应该这样使用。
+
+### 在Docker中使用
+
+<p>
+<a href="https://hub.docker.com/repository/docker/qben/qb">
+<img alt="Docker Base-Debian" src="https://img.shields.io/badge/docker%20base-Debian-blue?logo=docker">
+<img alt="docker-pull" src="https://img.shields.io/docker/pulls/qben/qb"><img>
+<img alt="Docker Image Size (16.7M)" src="https://img.shields.io/docker/image-size/qben/qb">
+</a>
+</p>
+
+```sh
+# 基于 Debian linux/amd64.
+docker run -it qben/qb:latest bash
+```
+
+---
+
+```sh
+# 当然如果你想要在一个其他环境中使用，也可以如以下操作：
+docker run -it ubuntu:latest bash
+apt update
+apt install curl git
+eval "_REMOTE=gitee _G_USER=AAAben" "$(curl https://gitee.com/AAAben/qb/raw/main/install.sh)"
+```
 
 ## 测试
 
